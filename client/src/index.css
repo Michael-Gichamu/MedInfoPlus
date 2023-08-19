@@ -1,0 +1,9 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+.black-bg{
+    background-color: #181A1B;
+}
+.royal-blue{
+    background-color: #0A246A;
+}
