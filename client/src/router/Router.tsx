@@ -4,7 +4,7 @@ import {
   createBrowserRouter,
 } from "react-router-dom";
 import AppLayout from "../Layout";
-import { ResourceCenterComponent } from "../pages/resource/ResourceCenter"; // Import your page components
+import { ResourceCenterComponent } from "../pages/resource/ResourceCenter";
 import { HomeComponentPage } from "../pages/resource/Home";
 const routes = createRoutesFromElements([
   <Route path="/" element={<AppLayout />}>
