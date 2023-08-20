@@ -1,19 +1,30 @@
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { TitleCardComponent } from "../../components/Tcard";
 import { SmallCardComponent } from "../../components/Scard";
-import React from "react";
 
 export const HomeComponentPage: React.FC = () => {
+  const navigate = useNavigate();
+  const gotoPost = (article: string) => {
+    navigate(article);
+  };
   return (
     <>
       <div className=" flex flex-col min-h-[77vh] black-bg">
-        <div className=" flex justify-center    pt-4  text-white text-3xl">
+        <div
+          onClick={() => gotoPost("/article/1")}
+          className=" flex justify-center cursor-pointer    pt-4  text-white text-3xl"
+        >
           <TitleCardComponent />
         </div>
         <div className=" px-[4rem] flex flex-col justify-center ">
           <div className=" mt-5 bg-white w-[18rem] h-[2rem] flex items-center font-bold justify-center ">
             Todays Top stories
           </div>
-          <div className="">
+          <div
+            onClick={() => gotoPost("/article/1")}
+            className=" cursor-pointer"
+          >
             <SmallCardComponent />
           </div>
         </div>
@@ -21,7 +32,10 @@ export const HomeComponentPage: React.FC = () => {
           <div className=" mt-5 bg-white w-[18rem] h-[2rem] flex items-center font-bold justify-center ">
             More Recent Articles
           </div>
-          <div className="">
+          <div
+            onClick={() => gotoPost("/article/1")}
+            className=" cursor-pointer"
+          >
             <SmallCardComponent />
           </div>
         </div>

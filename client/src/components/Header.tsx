@@ -15,7 +15,7 @@ const Header: React.FC = () => {
   console.log(selectedCondition);
 
   return (
-    <div className="  min-w-full h-[10%] bg-blue-500 flex gap-4 justify-between">
+    <div className="h-[100%] w-[100%] bg-blue-500 flex gap-4 justify-between">
       <div className=" text-black text-2xl p-5">MedInfoPlus</div>
       <div className="others ml-[5rem] flex justify-center items-center">
         <div className=" p-5 border-none focus:outline-none">
@@ -34,8 +34,10 @@ const Header: React.FC = () => {
             className=" bg-inherit border-none focus:outline-none"
             name="Wellness"
             id=""
+            onChange={handleConditionChange}
           >
             <option value="">Wellness</option>
+            <option value="/articles">Articles</option>
           </select>
         </div>
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
