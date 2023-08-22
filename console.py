@@ -12,9 +12,9 @@ import shlex
 classes = {"MedicalArticle": MedicalArticle, "Resource": Resource}
 
 
-class HBNBCommand(cmd.Cmd):
-    """ HBNH console """
-    prompt = '(hbnb) '
+class MedInfoPlusCommand(cmd.Cmd):
+    """ MedInfoPlus console """
+    prompt = '(MedInfoPlus) '
 
     def do_EOF(self, arg):
         """Exits console"""
@@ -156,4 +156,4 @@ class HBNBCommand(cmd.Cmd):
             print("** class doesn't exist **")
 
 if __name__ == '__main__':
-    HBNBCommand().cmdloop()
+    MedInfoPlusCommand().cmdloop()
