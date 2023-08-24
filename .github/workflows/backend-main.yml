@@ -32,7 +32,7 @@ jobs:
       - name: Set up MySQL for testing
         run: |
           # Execute the setup_mysql_test.sql script using the mysql command
-          cat Config_Management/setup_mysql_test.sql | mysql -hlocalhost -u"$MedInfoPlus_MYSQL_USER" -p"$MedInfoPlus_MYSQL_PWD" --socket=/var/run/mysqld/mysqld.sock
+          cat Config_Management/setup_mysql_test.sql | mysql -h127.0.0.1 -u"$MedInfoPlus_MYSQL_USER" -p"$MedInfoPlus_MYSQL_PWD"
 
       - name: Run SQLAlchemy model tests
         run: |
