@@ -34,6 +34,11 @@ class TestMedicalArticle(unittest.TestCase):
         self.assertTrue(hasattr(self.medicalarticle, "category"))
         self.assertEqual(self.medicalarticle.category, None)
 
+    def test_query_count(self):
+        """Test that MedicalArticle has attribute query_count and its none"""
+        self.assertTrue(hasattr(self.medicalarticle, "query_count"))
+        self.assertEqual(self.medicalarticle.query_count, None)
+
     def test_resource_Id_attr(self):
         """Test that MedicalArticle has attribute resource_Id and its none"""
         self.assertTrue(hasattr(self.medicalarticle, "resource_Id"))
@@ -45,7 +50,8 @@ class TestMedicalArticle(unittest.TestCase):
         self.tester.setup()
         
         resource_data = {
-            'name': 'SampleResource'
+            'name': 'Sample Resource',
+            'medical_type': 'sample type'
         }
         resource = Resource(**resource_data)
         self.tester.db.new(resource)
@@ -54,7 +60,7 @@ class TestMedicalArticle(unittest.TestCase):
 
         article_data = {
             'title': 'SampleArticle',
-            'category': 'Health',
+            'category': 'SampleCategory',
             'resource_Id': '{}'.format(resource.id)
         }
         article = MedicalArticle(**article_data)
@@ -64,7 +70,8 @@ class TestMedicalArticle(unittest.TestCase):
 
         fetched_article = self.tester.db._DBStorage__session.query(MedicalArticle).filter_by(title='SampleArticle').first()
         self.assertIsNotNone(fetched_article)
-        self.assertEqual(fetched_article.category, 'Health')
+        self.assertEqual(fetched_article.category, 'SampleCategory')
+        self.assertEqual(fetched_article.query_count, 0)
         self.assertEqual(fetched_article.resource_Id, resource.id)
 
         self.tester.teardown()
