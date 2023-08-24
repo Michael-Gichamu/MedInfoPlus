@@ -1,0 +1,42 @@
+name: Backend CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
+
+      - name: Set up database env vars
+        run: |
+          echo "MedInfoPlus_MYSQL_USER=MedInfoPlus_test" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_PWD=${{ secrets.MEDINFOPLUS_MYSQL_TEST_PWD }}" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_HOST=localhost" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_DB=MedInfoPlus_test_db" >> $GITHUB_ENV
+          echo "MedInfoPlus_ENV=test" >> $GITHUB_ENV
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Set up MySQL for testing
+        run: |
+          # Execute the setup_mysql_test.sql script using the mysql command
+          cat Config_Management/setup_mysql_test.sql | mysql -hlocalhost -u"$MedInfoPlus_MYSQL_USER" -p"$MedInfoPlus_MYSQL_PWD"
+
+      - name: Run SQLAlchemy model tests
+        run: |
+          # Execute the unittest.sh script
+          ./Config_Management/unittest.sh
+
+      
