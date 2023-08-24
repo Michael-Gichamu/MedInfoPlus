@@ -2,7 +2,7 @@
 # configuration for test user
 export MedInfoPlus_MYSQL_USER="MedInfoPlus_test"
 export MedInfoPlus_MYSQL_PWD="MedInfoPlus_test_pwd"
-export MedInfoPlus_MYSQL_HOST="127.0.0.1"
+export MedInfoPlus_MYSQL_HOST="localhost"
 export MedInfoPlus_MYSQL_DB="MedInfoPlus_test_db"
 export MedInfoPlus_ENV="test"
 
