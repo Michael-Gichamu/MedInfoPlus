@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
+# Create Backup of the database
+./Config_Management/db_backup.sh
 # Execute the test configuration script
-source auto_config/test_config.sh
+source Config_Management/test_config.sh
 printenv | grep MedInfoPlus_ENV
 
 # Run tests
@@ -14,5 +16,5 @@ echo "Resource Class Tests"
 python3 -m unittest tests.test_models.test_resource
 
 # Back to development
-source auto_config/dev_config.sh
+source Config_Management/dev_config.sh
 printenv | grep MedInfoPlus_ENV
