@@ -11,6 +11,7 @@ class Resource(BaseModel, Base):
     """Representation of resource"""
     __tablename__ = 'resource'
     name = Column(String(60), nullable=False)
+    medical_type = Column(String(60), nullable=False)
     medical_articles = relationship('MedicalArticle', backref='resource', cascade='delete')
 
     def __init__(self, *args, **kwargs):
