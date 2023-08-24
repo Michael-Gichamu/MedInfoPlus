@@ -47,7 +47,6 @@ jobs:
         run: |
           echo "Creating MySQL database and user"
           cat Config_Management/setup_mysql_test.sql | mysql -h127.0.0.1 -uroot -proot_password
-          echo "GRANT ALL PRIVILEGES ON MedInfoPlus_test_db.* TO 'MedInfoPlus_test'@'127.0.0.1';" | mysql -h127.0.0.1 -uroot -proot_password
           echo "MySQL setup completed"
 
       - name: Run SQLAlchemy model tests
