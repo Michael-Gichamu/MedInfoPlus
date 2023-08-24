@@ -23,6 +23,11 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up MySQL for testing
+        run: |
+          cat Config_Management/setup_mysql_test.sql | mysql -hlocalhost -uroot -proot_password
+          echo "MySQL setup completed"
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
