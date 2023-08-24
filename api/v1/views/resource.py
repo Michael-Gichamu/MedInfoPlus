@@ -33,6 +33,19 @@ def get_resource(resource_id):
     return jsonify(resource.to_dict())
 
 
+@app_views.route('/resources/medicaltypes', methods=['GET'])
+def get_resources_medicaltype():
+    resources = storage.all(Resource)
+    medical_type_resources = {}
+    for resource in resources.values():
+        medical_type = resource.medical_type
+        if medical_type not in medical_type_resources:
+            medical_type_resources[medical_type] = []
+        medical_type_resources[medical_type].append(resource.to_dict())
+
+    return jsonify(medical_type_resources)
+    
+
 @app_views.route('/resources/<resource_id>/medicalarticles', methods=['GET'])
 def get_resource_medicalarticles(resource_id):
     """
