@@ -38,7 +38,8 @@ class TestResource(unittest.TestCase):
         self.tester.setup()
 
         resource_data = {
-            'name': 'SampleResource'
+            'name': 'Sample Resource',
+            'medical_type': 'sample type'
         }
         resource_sample = Resource(**resource_data)
         self.tester.db.new(resource_sample)
@@ -64,11 +65,12 @@ class TestResource(unittest.TestCase):
         self.tester.db.save()
         self.tester.db.reload()
 
-        fetched_resource = self.tester.db._DBStorage__session.query(Resource).filter_by(name='SampleResource').first()
+        fetched_resource = self.tester.db._DBStorage__session.query(Resource).filter_by(name='Sample Resource').first()
         self.assertIsNotNone(fetched_resource)
+        self.assertEqual(fetched_resource.medical_type, 'sample type')
 
         medical_articles_length = self.tester.db._DBStorage__session.query(MedicalArticle). \
-            join(Resource).filter(Resource.name == 'SampleResource').count()
+            join(Resource).filter(Resource.name == 'Sample Resource').count()
         self.assertEqual(medical_articles_length, 2)
 
 
