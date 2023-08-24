@@ -27,36 +27,32 @@ class MedInfoPlusCommand(cmd.Cmd):
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
-
     def _key_value_parser(self, args):
         """creates a dictionary from a list of strings"""
         new_dict = {}
+        current_key = None
         for arg in args:
             if "=" in arg:
-                kvp = arg.split('=', 1)
-                key = kvp[0]
-                value = kvp[1]
-                if value[0] == value[-1] == '"':
-                    value = shlex.split(value)[0].replace('_', ' ')
-                else:
-                    try:
-                        value = int(value)
-                    except:
-                        try:
-                            value = float(value)
-                        except:
-                            continue
+                key, value = arg.split("=", 1)
+                if value.startswith('"') and value.endswith('"'):
+                    value = value[1:-1]
                 new_dict[key] = value
+            else:
+                if current_key is not None:
+                    new_dict[current_key] += f" {arg}"
+            current_key = key
         return new_dict
 
     def do_create(self, arg):
         """Creates a new instance of a class"""
-        args = arg.split()
+        args = shlex.split(arg)
         if len(args) == 0:
             print("** class name missing **")
             return False
         if args[0] in classes:
+            print(args[1:])
             new_dict = self._key_value_parser(args[1:])
+            print(new_dict)
             instance = classes[args[0]](**new_dict)
         else:
             print("** class doesn't exist **")
@@ -88,10 +84,13 @@ class MedInfoPlusCommand(cmd.Cmd):
         if len(args) == 0:
             print("** class name missing **")
         elif args[0] in classes:
+            class_name = args[0]
             if len(args) > 1:
-                key = args[0] + "." + args[1]
+                instance_id = args[1]
+                key = f"{class_name}.{instance_id}"
                 if key in models.storage.all():
-                    models.storage.all().pop(key)
+                    instance = models.storage.all()[key]
+                    models.storage.delete(instance)
                     models.storage.save()
                 else:
                     print("** no instance found **")
@@ -99,6 +98,7 @@ class MedInfoPlusCommand(cmd.Cmd):
                 print("** instance id missing **")
         else:
             print("** class doesn't exist **")
+
 
     def do_all(self, arg):
         """Prints string representations of instances"""
@@ -118,42 +118,45 @@ class MedInfoPlusCommand(cmd.Cmd):
         print("]")
 
     def do_update(self, arg):
-        """Update an instance based on the class name, id, attribute & value"""
+        """Updates an instance based on the class name and id"""
         args = shlex.split(arg)
-        integers = ["number_rooms", "number_bathrooms", "max_guest",
-                    "price_by_night"]
-        floats = ["latitude", "longitude"]
         if len(args) == 0:
             print("** class name missing **")
-        elif args[0] in classes:
-            if len(args) > 1:
-                k = args[0] + "." + args[1]
-                if k in models.storage.all():
-                    if len(args) > 2:
-                        if len(args) > 3:
-                            if args[0] == "Place":
-                                if args[2] in integers:
-                                    try:
-                                        args[3] = int(args[3])
-                                    except:
-                                        args[3] = 0
-                                elif args[2] in floats:
-                                    try:
-                                        args[3] = float(args[3])
-                                    except:
-                                        args[3] = 0.0
-                            setattr(models.storage.all()[k], args[2], args[3])
-                            models.storage.all()[k].save()
-                        else:
-                            print("** value missing **")
-                    else:
-                        print("** attribute name missing **")
-                else:
-                    print("** no instance found **")
-            else:
-                print("** instance id missing **")
-        else:
+            return
+        if args[0] not in classes:
             print("** class doesn't exist **")
+            return
+        if len(args) < 2:
+            print("** instance id missing **")
+            return
+        key = args[0] + "." + args[1]
+        if key not in models.storage.all():
+            print("** no instance found **")
+            return
+
+        instance = models.storage.all()[key]
+        if len(args) < 3:
+            print("** attribute name missing **")
+            return
+        if len(args) < 4:
+            print("** value missing **")
+            return
+
+        attribute_name = args[2]
+        value = args[3]
+        if hasattr(instance, attribute_name):
+            try:
+                value = int(value)
+            except ValueError:
+                try:
+                    value = float(value)
+                except ValueError:
+                    if value.startswith('"') and value.endswith('"'):
+                        value = value[1:-1]
+            setattr(instance, attribute_name, value)
+            instance.save()
+        else:
+            print("** attribute doesn't exist **")
 
 if __name__ == '__main__':
     MedInfoPlusCommand().cmdloop()
