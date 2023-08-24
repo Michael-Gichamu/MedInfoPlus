@@ -50,9 +50,7 @@ class MedInfoPlusCommand(cmd.Cmd):
             print("** class name missing **")
             return False
         if args[0] in classes:
-            print(args[1:])
             new_dict = self._key_value_parser(args[1:])
-            print(new_dict)
             instance = classes[args[0]](**new_dict)
         else:
             print("** class doesn't exist **")
