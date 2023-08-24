@@ -25,7 +25,7 @@ jobs:
 
       - name: Set up MySQL for testing
         run: |
-          cat Config_Management/setup_mysql_test.sql | mysql -hlocalhost -uroot -proot_password
+          cat Config_Management/setup_mysql_test.sql | mysql -h127.0.0.1 -uroot -proot_password
           echo "MySQL setup completed"
 
       - name: Set up Python
