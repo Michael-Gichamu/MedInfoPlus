@@ -44,5 +44,9 @@ jobs:
           echo "MedInfoPlus_MYSQL_DB=MedInfoPlus_test_db" >> $GITHUB_ENV
           echo "MedInfoPlus_ENV=test" >> $GITHUB_ENV
 
+      - name: Install MySQL Client Library
+        run: |
+          pip install mysqlclient
+
       - name: Run SQLAlchemy model tests
         run: ./Config_Management/unittest.sh
