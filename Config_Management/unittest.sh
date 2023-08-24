@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# Create Backup of the database
-./Config_Management/db_backup.sh
 # Execute the test configuration script
 source Config_Management/test_config.sh
 printenv | grep MedInfoPlus_ENV
