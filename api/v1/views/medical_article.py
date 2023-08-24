@@ -29,9 +29,24 @@ def get_medicalarticle(medicalarticle_id):
     medicalarticle = storage.get(MedicalArticle, medicalarticle_id)
     if medicalarticle is None:
         abort(404, 'Not found')
+    
+    medicalarticle.query_count += 1
+    storage.save()
     return jsonify(medicalarticle.to_dict())
 
 
+@app_views.route('/medicalarticles/toparticles', methods=['GET'])
+def get_top_medicalarticles():
+    """Get and sort medicalarticles based on query count"""
+    medicalarticles_list = []
+    medicalarticles = storage.all(MedicalArticle)
+    medicalarticles = sorted(medicalarticles.values(), key=lambda x: x.query_count, reverse=True)
+    for medicalarticle in medicalarticles:
+        medicalarticles_list.append(medicalarticle.to_dict())
+
+    return jsonify(medicalarticles_list)
+
+  
 @app_views.route('/medicalarticles/<medicalarticle_id>/categories/medicalarticles', methods=['GET'])
 def get_medicalarticles_of_category(medicalarticle_id):
     """
