@@ -33,11 +33,12 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "MedInfoPlus_MYSQL_USER=root" >> $GITHUB_ENV
-          echo "MedInfoPlus_MYSQL_PWD=root_password" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_USER=MedInfoPlus_test" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_PWD=${{ secrets.MEDINFOPLUS_MYSQL_TEST_PWD }}" >> $GITHUB_ENV
           echo "MedInfoPlus_MYSQL_HOST=127.0.0.1" >> $GITHUB_ENV
           echo "MedInfoPlus_MYSQL_DB=MedInfoPlus_test_db" >> $GITHUB_ENV
           echo "MedInfoPlus_ENV=test" >> $GITHUB_ENV
+
 
       - name: Install MySQL Client Library
         run: |
