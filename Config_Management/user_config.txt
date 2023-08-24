@@ -1,0 +1,1 @@
+MedInfoPlus_MYSQL_USER=MedInfoPlus_dev MedInfoPlus_MYSQL_PWD=MedInfoPlus_dev_pwd MedInfoPlus_MYSQL_HOST=localhost MedInfoPlus_MYSQL_DB=MedInfoPlus_dev_db MedInfoPlus_HOST=0.0.0.0 MedInfoPlus_PORT=5000
