@@ -1,4 +1,4 @@
-name: Backend CI
+name: Backend_MedicalArticle CI
 
 on:
   push:
@@ -43,6 +43,21 @@ jobs:
         run: |
           pip install mysqlclient
 
-      - name: Run Unit test
+      - name: Show MedInfoPlus_ENV variable
         run: |
-          ./Config_Management/unittest.sh
+          printenv | grep MedInfoPlus_ENV
+
+      - name: Run BaseModel Class Tests
+        run: |
+          echo "BaseModel Class Tests"
+          python3 -m unittest tests.test_models.test_base_model
+
+      - name: Run MedicalArticle Class Tests
+        run: |
+          echo "MedicalArticle Class Tests"
+          python3 -m unittest tests.test_models.test_medical_article
+
+      - name: Run Resource Class Tests
+        run: |
+          echo "Resource Class Tests"
+          python3 -m unittest tests.test_models.test_resource
