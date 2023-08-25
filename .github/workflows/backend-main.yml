@@ -9,51 +9,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: root_password
-          MYSQL_DATABASE: MedInfoPlus_test_db
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      DB_DATABASE: MedInfoPlus_test_db
+      DB_USER: root
+      DB_PASSWORD: root
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Install MySQL Server
+      - name: Start MySQL
         run: |
-          sudo apt-get update
-          sudo apt-get install -y mysql-server
-
-      - name: Create directory for mysqld
-        run: |
-          sudo mkdir -p /var/run/mysqld/
-        
-      - name: Set permissions for mysqld directory
-        run: |
-          sudo chown mysql:mysql /var/run/mysqld/
-          sudo systemctl status mysql.service
-
-      - name: Start MySQL Server
-        run: |
-          sudo systemctl start mysql
-          sudo systemctl status mysql.service
-
-      - name: Check MySQL Server Status
-        run: |
-          sudo systemctl status mysql.service
-
-      - name: Set up MySQL for testing
-        run: |
-          echo "Creating MySQL database and user"
-          mysql -h127.0.0.1 -uroot -proot_password -e "CREATE DATABASE IF NOT EXISTS MedInfoPlus_test_db;"
-          mysql -h127.0.0.1 -uroot -proot_password -e "CREATE USER IF NOT EXISTS 'MedInfoPlus_test'@'localhost' IDENTIFIED BY 'MedInfoPlus_test_pwd';"
-          mysql -h127.0.0.1 -uroot -proot_password -e "GRANT ALL PRIVILEGES ON MedInfoPlus_test_db.* TO 'MedInfoPlus_test'@'localhost';"
-          mysql -h127.0.0.1 -uroot -proot_password -e "FLUSH PRIVILEGES;"
-          echo "MySQL setup completed"
+          sudo /etc/init.d/mysql start
+          mysql -e "CREATE DATABASE IF NOT EXISTS $DB_DATABASE;" -u$DB_USER -p$DB_PASSWORD
 
       - name: Set up Python
         uses: actions/setup-python@v2
@@ -65,25 +33,30 @@ jobs:
 
       - name: Set up environment variables
         run: |
-          echo "MedInfoPlus_MYSQL_USER=MedInfoPlus_test" >> $GITHUB_ENV
-          echo "MedInfoPlus_MYSQL_PWD=MedInfoPlus_test_pwd" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_USER=$DB_USER" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_PWD=$DB_PASSWORD" >> $GITHUB_ENV
           echo "MedInfoPlus_MYSQL_HOST=localhost" >> $GITHUB_ENV
-          echo "MedInfoPlus_MYSQL_DB=MedInfoPlus_test_db" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_DB=$DB_DATABASE" >> $GITHUB_ENV
           echo "MedInfoPlus_ENV=test" >> $GITHUB_ENV
+
       - name: Install MySQL Client Library
         run: |
           pip install mysqlclient
+
       - name: Show MedInfoPlus_ENV variable
         run: |
           printenv | grep MedInfoPlus_ENV
+
       - name: Run BaseModel Class Tests
         run: |
           echo "BaseModel Class Tests"
           python3 -m unittest tests.test_models.test_base_model
+
       - name: Run MedicalArticle Class Tests
         run: |
           echo "MedicalArticle Class Tests"
           python3 -m unittest tests.test_models.test_medical_article
+
       - name: Run Resource Class Tests
         run: |
           echo "Resource Class Tests"
