@@ -44,7 +44,7 @@ jobs:
         run: |
           echo "MedInfoPlus_MYSQL_USER=MedInfoPlus_test" >> $GITHUB_ENV
           echo "MedInfoPlus_MYSQL_PWD=MedInfoPlus_test_pwd" >> $GITHUB_ENV
-          echo "MedInfoPlus_MYSQL_HOST=127.0.0.1" >> $GITHUB_ENV
+          echo "MedInfoPlus_MYSQL_HOST=localhost" >> $GITHUB_ENV
           echo "MedInfoPlus_MYSQL_DB=MedInfoPlus_test_db" >> $GITHUB_ENV
           echo "MedInfoPlus_ENV=test" >> $GITHUB_ENV
 
