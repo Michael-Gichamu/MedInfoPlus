@@ -31,6 +31,7 @@ jobs:
       - name: Start MySQL Server
         run: |
           sudo service mysql start
+          systemctl status mysql.service
 
       - name: Check MySQL Server Status
         run: |
