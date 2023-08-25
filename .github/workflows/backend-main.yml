@@ -28,6 +28,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mysql-server
 
+      - name: Check MySQL Server Status
+        run: |
+          sudo service mysql status
+
       - name: Set up MySQL for testing
         run: |
           echo "Creating MySQL database and user"
