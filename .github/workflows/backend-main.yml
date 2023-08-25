@@ -35,6 +35,7 @@ jobs:
       - name: Set permissions for mysqld directory
         run: |
           sudo chown mysql:mysql /var/run/mysqld/
+          sudo systemctl status mysql.service
 
       - name: Start MySQL Server
         run: |
