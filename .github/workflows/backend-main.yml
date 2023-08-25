@@ -27,11 +27,16 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y mysql-server
-
-      - name: Start MySQL Server
+      
+      - name: Create MySQL sock directory
         run: |
-          sudo service mysql start
-          systemctl status mysql.service
+          sudo mkdir -p /var/run/mysqld
+          sudo touch /var/run/mysqld/mysqld.sock
+          sudo chown -R mysql /var/run/mysqld
+
+      - name: Restart MySQL Service
+        run: |
+          sudo /etc/init.d/mysql restart
 
       - name: Check MySQL Server Status
         run: |
