@@ -28,6 +28,10 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y mysql-server
 
+      - name: Start MySQL Server
+        run: |
+          sudo service mysql start
+
       - name: Check MySQL Server Status
         run: |
           sudo service mysql status
