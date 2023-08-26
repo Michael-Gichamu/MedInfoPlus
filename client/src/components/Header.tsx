@@ -44,10 +44,14 @@ const Header: React.FC = () => {
           <div className="">Health Cost Estimator</div>
         </div>
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
-          <div className="">Log in</div>
+          <div onClick={() => navigate("/auth/login")} className="">
+            Log in
+          </div>
         </div>
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
-          <div className="">Sign Up</div>
+          <div onClick={() => navigate("/auth/signup")} className="">
+            Sign Up
+          </div>
         </div>
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
           <input
