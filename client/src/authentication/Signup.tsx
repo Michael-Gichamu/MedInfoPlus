@@ -1,11 +1,12 @@
 import React from "react";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Error from "../components/Error";
 import { FaYahoo, FaMicrosoft, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./auth.css";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { signup } from "../actions/auth.actions";
 
 import "react-toastify/dist/ReactToastify.css";
 import img from "../../public/se.png";
@@ -20,13 +21,23 @@ export const SignUp: React.FC = () => {
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(Signupschema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
+    const dataFromServer = await signup(data);
+    if (dataFromServer.message) {
+      toast(dataFromServer.message);
+    }
+    if (dataFromServer.error) {
+      setError(dataFromServer.error);
+    } else {
+      reset();
+    }
   };
   return (
     <div className="md:flex justify-center items-center  sm:h-screen">

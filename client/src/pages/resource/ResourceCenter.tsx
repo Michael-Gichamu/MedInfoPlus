@@ -1,11 +1,17 @@
+import { useState } from "react";
 import { DiabetesTitleComponentCard } from "../../components/DTcard";
 import { DiabetesComponentCard } from "../../components/Dcard";
+const condition = "Diabetes";
 export const ResourceCenterComponent: any = () => {
+  const [overView, setOverview] = useState<boolean>(true);
   return (
     <>
-      <div className=" flex flex-col min-h-[77vh] black-bg">
-        <div className=" flex justify-center  pt-4  text-white text-3xl">
-          Diabetes Resource Center
+      <div className=" flex flex-col min-h-[77vh] bg-gray-200">
+        <div className="img flex justify-center mt-4">
+          <img src="/diabetes-img.webp" className=" rounded-full" alt="" />
+        </div>
+        <div className=" flex justify-center font-bold pb-3  pt-4  text-black text-3xl">
+          {condition} Resource Center
         </div>
         <div className=" text-blue-700 text-center text-xl">
           Trusted, comprehesive information and resources for your diabetes
@@ -29,10 +35,34 @@ export const ResourceCenterComponent: any = () => {
               width="[15rem]"
             />
           </div>
-          <div className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[5rem]">
-            <DiabetesTitleComponentCard />
-            <DiabetesTitleComponentCard />
+          <div className="select flex gap-4 pt-5 font-medium justify-center">
+            <p
+              className="overview underline cursor-pointer"
+              onClick={() => setOverview(true)}
+            >
+              Overview & Types
+            </p>
+            <p
+              className="symptoms underline cursor-pointer"
+              onClick={() => {
+                setOverview(false);
+              }}
+            >
+              Symptoms & Diagnostics
+            </p>
           </div>
+
+          {overView ? (
+            <div className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]">
+              <DiabetesTitleComponentCard title="Overview" content="" />
+              <DiabetesTitleComponentCard title="Overview" content="" />
+            </div>
+          ) : (
+            <div className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]">
+              <DiabetesTitleComponentCard title="Symptoms" content="" />
+              <DiabetesTitleComponentCard title="Symptoms" content="" />
+            </div>
+          )}
         </div>
       </div>
     </>

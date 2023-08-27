@@ -4,10 +4,10 @@ export const SmallCardComponent: React.FC = () => {
     <>
       <div className="flex flex-col py-4">
         <div className=" w-[90vw] bg-white h-[10rem] min-h-fit flex  items-center ">
-          <div className=" h-[80%] flex justify-center mx-5 w-[20%] royal-blue  items-center">
+          <div className=" h-[80%] flex justify-center mx-5 w-[20%]   items-center">
             <div className=" text-center mx-auto my-auto ">Image</div>
           </div>
-          <div className="h-[100%] w-[80%] royal-blue flex flex-col">
+          <div className="h-[100%] w-[80%]  flex flex-col">
             <div className="title">
               <p className="text-white text-2xl pl-5 pt-5">Title:</p>
             </div>

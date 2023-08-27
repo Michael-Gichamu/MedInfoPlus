@@ -1,28 +1,43 @@
 import React from "react";
 import { useState } from "react";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import Error from "../components/Error";
 import { FaYahoo, FaMicrosoft, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./auth.css";
 import { LoginSchema } from "../schemas/login.schema";
 import { useForm } from "react-hook-form";
+import { login } from "../actions/auth.actions";
 import { yupResolver } from "@hookform/resolvers/yup";
 
 import "react-toastify/dist/ReactToastify.css";
 export const Login: React.FC = () => {
   const [error, setError] = useState<string>("");
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(LoginSchema),
   });
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     console.log(data);
-    // Perform login logic here
+    const dataFromServer = await login(data);
+
+    if (dataFromServer.error) {
+      setError(dataFromServer.error);
+    } else {
+      reset();
+    }
+    if (dataFromServer.token) {
+      const { token } = dataFromServer;
+      localStorage.setItem("user", JSON.stringify(token));
+      toast("Login Success");
+      navigate("/articles");
+    }
   };
 
   return (

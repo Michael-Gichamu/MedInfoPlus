@@ -10,10 +10,10 @@ export const HomeComponentPage: React.FC = () => {
   };
   return (
     <>
-      <div className=" flex flex-col min-h-[77vh] black-bg">
+      <div className=" flex flex-col min-h-[77vh] bg-gray-200">
         <div
           onClick={() => gotoPost("/article/1")}
-          className=" flex justify-center cursor-pointer    pt-4  text-white text-3xl"
+          className=" flex justify-center cursor-pointer    pt-4  text-black text-3xl"
         >
           <TitleCardComponent />
         </div>

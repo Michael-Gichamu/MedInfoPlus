@@ -4,8 +4,9 @@ export interface ILoginData {
 }
 
 export interface IsignupData {
-  username: string;
+  name: string;
   email: string;
   password: string;
-  confirmpass: string;
+  confirmpassword: string;
+  provider: boolean;
 }

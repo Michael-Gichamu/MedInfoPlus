@@ -10,14 +10,14 @@ export const getLoggedInUser = (): string => {
 
 export const signup = async (user: IsignupData) => {
   try {
-    const { username, email, password } = user;
-    const name = username;
+    const { name, email, password, provider } = user;
+
     const res = await fetch(`${URL}signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ name, email, password }),
+      body: JSON.stringify({ name, email, password, provider }),
     });
     if (!res.ok) {
       throw new Error("Network response was not ok!");
