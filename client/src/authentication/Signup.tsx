@@ -5,23 +5,39 @@ import Error from "../components/Error";
 import { FaYahoo, FaMicrosoft, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./auth.css";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import "react-toastify/dist/ReactToastify.css";
 import img from "../../public/se.png";
+import { Signupschema } from "../schemas/signup.schema";
+import { useForm } from "react-hook-form";
 
 export const SignUp: React.FC = () => {
   const [showOptions, setShowOptions] = useState<boolean>(true);
 
   const [showForm, setShowForm] = useState(false);
   const [error, setError] = useState("");
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(Signupschema),
+  });
 
+  const onSubmit = (data: any) => {
+    console.log(data);
+  };
   return (
     <div className="md:flex justify-center items-center  sm:h-screen">
       <div className="clip-path w-full md:w-[50%] h-[15%] md:h-full bg-[#03103c] flex items-center justify-center">
         <img className="h-[6rem] md:h-auto" src={img} alt="" />
       </div>
       <ToastContainer />
-      <form className="flex flex-col sm:items-center sm:justify-center md:w-[50%] h-full p-4">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col sm:items-center sm:justify-center md:w-[50%] h-full p-4"
+      >
         <div className="w-full md:w-[50%]">
           {error && <Error message={error} />}
           {showOptions && (
@@ -67,47 +83,57 @@ export const SignUp: React.FC = () => {
             <>
               <div className="group mb-[1.5rem] ">
                 <input
-                  //   {...register("username")}
+                  {...register("name")}
                   type="text"
                   className="input w-full"
                 />
                 <span className="highlight"></span>
                 <span className="bar w-full"></span>
                 <label>Name</label>
-                <p className="text-[red]">{}</p>
+                <p className="text-[red]">{errors.name?.message}</p>
               </div>
               <div className="group mb-[1.5rem] ">
                 <input
-                  //   {...register("email")}
+                  {...register("email")}
                   type="email"
                   className="input w-full"
                 />
                 <span className="highlight"></span>
                 <span className="bar w-full"></span>
                 <label>Email</label>
-                <p className="text-[red]">{}</p>
+                <p className="text-[red]">{errors.email?.message}</p>
               </div>
               <div className="group mb-[1.5rem] ">
                 <input
-                  //   {...register("password")}
+                  {...register("password")}
                   type="password"
                   className="input w-full"
                 />
                 <span className="highlight"></span>
                 <span className="bar w-full"></span>
                 <label>Password</label>
-                <p className="text-[red]">{}</p>
+                <p className="text-[red]">{errors.password?.message}</p>
               </div>
               <div className="group mb-[1.5rem] ">
                 <input
-                  //   {...register("confirmpass")}
+                  {...register("confirmPassword")}
                   type="password"
                   className="input w-full"
                 />
                 <span className="highlight"></span>
                 <span className="bar w-full"></span>
                 <label>Confirm Password</label>
-                <p className="text-[red]">{}</p>
+                <p className="text-[red]">{errors.confirmPassword?.message}</p>
+              </div>
+              <div className=" flex gap-3 my-4">
+                <input
+                  type="checkbox"
+                  {...register("provider")}
+                  name="provider"
+                  defaultChecked={false}
+                  id=""
+                />{" "}
+                <p className="">Are you a health care Provider ?</p>
               </div>
 
               <button className="auth-btn flex items-center justify-center border-none   text-white h-[2.55rem] w-full mb-2 rounded">

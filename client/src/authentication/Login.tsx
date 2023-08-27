@@ -5,10 +5,25 @@ import Error from "../components/Error";
 import { FaYahoo, FaMicrosoft, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import "./auth.css";
+import { LoginSchema } from "../schemas/login.schema";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 
 import "react-toastify/dist/ReactToastify.css";
 export const Login: React.FC = () => {
   const [error, setError] = useState<string>("");
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(LoginSchema),
+  });
+
+  const onSubmit = (data: any) => {
+    console.log(data);
+    // Perform login logic here
+  };
 
   return (
     <div className="h-screen sm:flex  ">
@@ -18,7 +33,7 @@ export const Login: React.FC = () => {
       <ToastContainer />
       <form
         className="sm:w-[50%]  flex items-center justify-center p-4"
-        // onSubmit={handleSubmit(onSubmitHandler)}
+        onSubmit={handleSubmit(onSubmit)}
       >
         <div className="sm:w-[50%] w-full">
           {error && <Error message={error} />}
@@ -44,24 +59,26 @@ export const Login: React.FC = () => {
           <div className="group mb-[1.5rem] ">
             <input
               //   {...register("email")}
+              {...register("email", { required: true })}
               type="email"
               className="input w-full"
             />
             <span className="highlight "></span>
             <span className="bar w-full"></span>
             <label>Email</label>
-            <p className="text-[red]">{}</p>
+            <p className="text-[red]">{errors.email?.message}</p>
           </div>
           <div className="group mb-[2.5rem] ">
             <input
               //   {...register("password")}
+              {...register("password", { required: true })}
               type="password"
               className="input w-full"
             />
             <span className="highlight"></span>
             <span className="bar w-full"></span>
             <label>Password</label>
-            <p className="text-[red]">{}</p>
+            <p className="text-[red]">{errors.password?.message}</p>
           </div>
           <button className="auth-btn border-none  flex items-center justify-center   text-white h-[2.55rem] w-full mb-[1.5rem] rounded">
             Login
