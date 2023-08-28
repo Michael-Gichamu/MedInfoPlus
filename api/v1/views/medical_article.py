@@ -2,7 +2,8 @@
 """
 Flask route that returns json medicalarticle response
 """
-from flask import abort, jsonify, request
+from flask import abort, jsonify, request, send_file
+import os
 from api.v1.views import app_views
 from models import storage
 from models.medical_article import MedicalArticle
