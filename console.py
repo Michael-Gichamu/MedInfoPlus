@@ -156,5 +156,6 @@ class MedInfoPlusCommand(cmd.Cmd):
         else:
             print("** attribute doesn't exist **")
 
+
 if __name__ == '__main__':
     MedInfoPlusCommand().cmdloop()
