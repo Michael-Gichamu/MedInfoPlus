@@ -3,7 +3,8 @@
 Flask route that returns json resource response
 """
 from api.v1.views import app_views
-from flask import abort, jsonify, request, g
+from flask import abort, jsonify, request, g, send_from_directory
+import os
 from models import storage
 from models.resource import Resource
 from models.medical_article import MedicalArticle
@@ -64,7 +65,7 @@ def get_resource_medicalarticles(resource_id):
 def get_category_medicalarticles(resource_id):
     """
     Retrieves medical articles of a resource based on category.
-    """
+   """
     resource = storage.get(Resource, resource_id)
     if resource is None:
         abort(404, 'Not found')
