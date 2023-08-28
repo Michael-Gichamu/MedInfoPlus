@@ -48,7 +48,9 @@ class TestResource(unittest.TestCase):
 
         article_data = {
             'title': 'SampleArticle',
-            'category': 'Health',
+            'category': 'SampleCategory',
+            'summary': 'Sample has a summary',
+            'image': 'samplearticle.jpg',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article = MedicalArticle(**article_data)
@@ -56,7 +58,9 @@ class TestResource(unittest.TestCase):
 
         article_data1 = {
             'title': 'SampleArticle1',
-            'category': 'Health',
+            'category': 'SampleCategory1',
+            'summary': 'Sample1 has a summary',
+            'image': 'samplearticle1.jpg',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article1 = MedicalArticle(**article_data1)
