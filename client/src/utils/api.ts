@@ -1,1 +1,1 @@
-export const apiDomain: string = "http://localhost:3000/";
+export const apiDomain: string = "http://web-01.mikedev.tech/api/v1/";

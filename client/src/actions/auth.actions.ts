@@ -1,7 +1,7 @@
 import { ILoginData, IsignupData } from "../types/auth.types";
 import { apiDomain } from "../utils/api";
 
-const URL = apiDomain + "auth/";
+const URL = apiDomain + "/auth";
 
 export const getLoggedInUser = (): string => {
   const user: string = JSON.parse(localStorage.getItem("user") as string);

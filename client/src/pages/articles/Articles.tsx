@@ -1,17 +1,34 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { datafromServer } from "../../actions/med.actions";
 import { DiabetesComponentCard } from "../../components/Dcard";
 export const ArticlesComponent: React.FC = (): JSX.Element => {
   const { id } = useParams();
-  if (id == "1") {
+  const [error, setError] = useState<any>();
+  const [data, setData] = useState<any>();
+
+  const getData = async () => {
+    try {
+      const response = await datafromServer("medicalarticles" + "/" + `${id}`);
+      setData(response);
+    } catch (error) {
+      setError(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+    console.log(data);
+  }, []);
+  const text = "Diabetes";
+  if (!error) {
     return (
       <>
         <div className=" flex flex-col bg-gray-300 h-[100%] overflow-y-scroll">
           <div className=" text-black text-lg ml-5 font-semibold mt-2">
-            Cancer health / Lung cancer article
+            {text} article
           </div>
           <div className="ml-5 mt-2 text-black text-xl font-medium">
-            Lung cancer, Signs & Symptoms, <br /> Treatment & care
+            {text}, Signs & Symptoms, <br /> Treatment & care
           </div>
           <div className="flex gap-4 ml-5 mt-3">
             <DiabetesComponentCard width="10rem" text="Things to know" />
@@ -27,10 +44,13 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
                 Things to Know
               </p>
               <div className=" flex-wrap flex ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-                assumenda similique nisi accusantium necessitatibus, illo
-                dignissimos. Natus assumenda doloremque eveniet architecto
-                expedita magni, id ducimus. Ad dicta vel quidem facere.
+                <section>
+                  <h2>Fact : Chronic Condition</h2>
+                  <p>
+                    Diabetes is a chronic health condition affecting blood sugar
+                    levels.
+                  </p>
+                </section>
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10">
@@ -42,13 +62,29 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
           <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
             <div className="text flex flex-col w-[70%]">
               <p className="text font-medium text-lg  mt-[4rem]">
-                What is Lung Cancer
+                Whaat is {text}
               </p>
               <div className=" flex-wrap flex ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-                assumenda similique nisi accusantium necessitatibus, illo
-                dignissimos. Natus assumenda doloremque eveniet architecto
-                expedita magni, id ducimus. Ad dicta vel quidem facere.
+                Diabetes is a chronic medical condition that affects how your
+                body processes glucose (sugar), a vital source of energy.
+                <section>
+                  <h2>Symptoms and Diagnosis</h2>
+                  <p>
+                    Common symptoms of diabetes include increased thirst,
+                    frequent urination, and unexplained weight loss.
+                  </p>
+                  <p>
+                    Diagnosis involves blood tests to measure blood sugar
+                    levels.
+                  </p>
+                </section>
+                <section>
+                  <h2>Treatment</h2>
+                  <p>
+                    Treatment for diabetes may include lifestyle changes,
+                    medication, and insulin therapy.
+                  </p>
+                </section>
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10 ">
@@ -60,13 +96,47 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
           <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
             <div className="text flex flex-col w-[70%]">
               <p className="text font-medium text-lg  mt-[4rem]">
-                What are the causes of Lung Cancer
+                What are the causes of {text}
               </p>
               <div className=" flex-wrap flex ">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
-                assumenda similique nisi accusantium necessitatibus, illo
-                dignissimos. Natus assumenda doloremque eveniet architecto
-                expedita magni, id ducimus. Ad dicta vel quidem facere.
+                <h1>Causes of Diabetes</h1>
+
+                <h2>Type 1 Diabetes:</h2>
+                <p>
+                  <strong>Autoimmune Reaction:</strong> Type 1 diabetes occurs
+                  when the immune system attacks and destroys insulin-producing
+                  cells in the pancreas.
+                </p>
+
+                <h2>Type 2 Diabetes:</h2>
+                <p>
+                  <strong>Insulin Resistance:</strong> Type 2 diabetes is linked
+                  to insulin resistance, where cells don't respond effectively
+                  to insulin.
+                </p>
+                <p>
+                  <strong>Obesity:</strong> Excess body weight, especially
+                  abdominal obesity, increases the risk of type 2 diabetes.
+                </p>
+                <p>
+                  <strong>Physical Inactivity:</strong> Lack of regular physical
+                  activity contributes to insulin resistance.
+                </p>
+                <p>
+                  <strong>Unhealthy Diet:</strong> A diet high in sugars and
+                  unhealthy fats raises the risk of type 2 diabetes.
+                </p>
+                <p>
+                  <strong>Genetics:</strong> Family history and genetics play a
+                  role in determining the risk of type 2 diabetes.
+                </p>
+
+                <h2>Gestational Diabetes:</h2>
+                <p>
+                  <strong>Hormonal Changes:</strong> During pregnancy, hormonal
+                  changes can lead to insulin resistance and gestational
+                  diabetes.
+                </p>
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10 ">

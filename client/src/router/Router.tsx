@@ -16,6 +16,7 @@ const routes = createRoutesFromElements([
     <Route path="/auth/login" element={<Login />} />
     <Route path="/articles" element={<HomeComponentPage />} />
     <Route path="/article/:id" element={<ArticlesComponent />} />
+    <Route path="/diabetes/articles/:id" element={<ArticlesComponent />} />
   </Route>,
 ]);
 

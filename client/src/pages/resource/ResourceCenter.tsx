@@ -1,9 +1,51 @@
-import { useState } from "react";
 import { DiabetesTitleComponentCard } from "../../components/DTcard";
 import { DiabetesComponentCard } from "../../components/Dcard";
+import { useEffect, useState } from "react";
+import { datafromServer } from "../../actions/med.actions";
+import { useNavigate } from "react-router-dom";
 const condition = "Diabetes";
 export const ResourceCenterComponent: any = () => {
   const [overView, setOverview] = useState<boolean>(true);
+  const [symptoms, setSymptoms] = useState<
+    { name: string; summary: string; title: string; id: number }[]
+  >([]);
+  const [overviewTypes, setOverviewTypes] = useState<
+    { name: string; summary: string; title: string; id: number }[]
+  >([]);
+
+  const getdata = async () => {
+    const data = await datafromServer("medicalarticles");
+    const symptomsData = [];
+    const overviewtypesArray = [];
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].category == "Symptoms & Diagnosis") {
+        symptomsData.push({
+          name: data[i].category,
+          summary: data[i].summary,
+          title: data[i].title,
+          id: data[i].id,
+        });
+      }
+      if (data[i].category == "Overview & Types") {
+        // setOverviewTypes(data[i].category);
+        overviewtypesArray.push({
+          name: data[i].category,
+          summary: data[i].summary,
+          title: data[i].title,
+          id: data[i].id,
+        });
+        // console.log(overviewTypes);
+      }
+    }
+    setSymptoms(symptomsData);
+    setOverviewTypes(overviewtypesArray);
+  };
+
+  useEffect(() => {
+    getdata();
+  }, []);
+  const navigate = useNavigate();
+
   return (
     <>
       <div className=" flex flex-col min-h-[77vh] bg-gray-200">
@@ -52,17 +94,29 @@ export const ResourceCenterComponent: any = () => {
             </p>
           </div>
 
-          {overView ? (
-            <div className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]">
-              <DiabetesTitleComponentCard title="Overview" content="" />
-              <DiabetesTitleComponentCard title="Overview" content="" />
-            </div>
-          ) : (
-            <div className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]">
-              <DiabetesTitleComponentCard title="Symptoms" content="" />
-              <DiabetesTitleComponentCard title="Symptoms" content="" />
-            </div>
-          )}
+          {overView
+            ? overviewTypes.map((overview: any) => (
+                <div
+                  onClick={() => navigate("articles" + "/" + `${overview.id}`)}
+                  className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]"
+                >
+                  <DiabetesTitleComponentCard
+                    key={overview.id}
+                    title={overview.title}
+                    content={overview.summary}
+                  />
+                </div>
+              ))
+            : // This is
+              symptoms.map((symptom: any) => (
+                <div className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]">
+                  <DiabetesTitleComponentCard
+                    key={symptom.id}
+                    title={symptom.title}
+                    content={symptom.summary}
+                  />
+                </div>
+              ))}
         </div>
       </div>
     </>
