@@ -6,12 +6,13 @@ import models
 from models.base_model import BaseModel, Base
 from models.medical_article import MedicalArticle
 from models.resource import Resource
+from models.user import User
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"MedicalArticle": MedicalArticle, "Resource": Resource}
+classes = {"MedicalArticle": MedicalArticle, "Resource": Resource, "User": User}
 
 
 class DBStorage:
