@@ -7,9 +7,10 @@ import models
 from models.base_model import BaseModel
 from models.medical_article import MedicalArticle
 from models.resource import Resource
+from models.user import User
 import shlex
 
-classes = {"MedicalArticle": MedicalArticle, "Resource": Resource}
+classes = {"MedicalArticle": MedicalArticle, "Resource": Resource, "User": User}
 
 
 class MedInfoPlusCommand(cmd.Cmd):
