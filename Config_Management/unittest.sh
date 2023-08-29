@@ -18,6 +18,9 @@ python3 -m unittest tests.test_models.test_medical_article
 echo "Resource Class Tests"
 python3 -m unittest tests.test_models.test_resource
 
+echo "User Class Tests"
+python3 -m unittest tests.test_models.test_user
+
 # Back to development
 source Config_Management/dev_config.sh
 printenv | grep MedInfoPlus_ENV
