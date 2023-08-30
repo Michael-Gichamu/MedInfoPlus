@@ -75,20 +75,15 @@ class DBStorage:
         """call remove() method on the private session attribute"""
         self.__session.remove()
 
-    def get(self, cls, id):
+    def get(self, cls, **kwargs):
         """A method to retrieve one object"""
         try:
-            """
-            Kwargs Case:
-            if cls == classes['Resource']:
-                name = kwargs.get('name')
-                obj = self.__session.query(cls).filter(cls.name == name).first()
-            elif cls == classes['MedicalArticle']:
-                title = kwargs.get('title')
-                obj = self.__session.query(cls).filter(cls.title == title).first()
-            """
-            obj = self.__session.query(cls).filter(cls.id == id).first()
-            return obj
+            if 'id' in kwargs:
+                obj = self.__session.query(cls).filter(cls.id == kwargs['id']).first()
+                return obj
+            elif cls == classes['User'] and 'email' in kwargs:
+                obj = self.__session.query(cls).filter(cls.email == kwargs['email']).first()
+                return obj
         except Exception as e:
             return None
 
