@@ -7,6 +7,7 @@ import os
 
 app = Flask(__name__)
 app.register_blueprint(app_views)
+app.config['SECRET_KEY'] = 'MedInfoPlus_secret_key'
 default_host = os.environ.get('MedInfoPlus_HOST', '0.0.0.0')
 default_port = os.environ.get('MedInfoPlus_PORT', '5000')
 app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
