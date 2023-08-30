@@ -27,7 +27,7 @@ def get_medicalarticle(medicalarticle_id):
     """
     Retrieves a medical article.
     """
-    medicalarticle = storage.get(MedicalArticle, medicalarticle_id)
+    medicalarticle = storage.get(MedicalArticle, id=medicalarticle_id)
     if medicalarticle is None:
         abort(404, 'Not found')
     
@@ -53,7 +53,7 @@ def get_medicalarticles_of_category(medicalarticle_id):
     """
     Get medicalarticles of the same category.
     """
-    medicalarticle = storage.get(MedicalArticle, medicalarticle_id)
+    medicalarticle = storage.get(MedicalArticle, id=medicalarticle_id)
     if medicalarticle is None:
         abort(404, 'Not found')
     medical_articles = storage.all(MedicalArticle)
@@ -67,7 +67,7 @@ def get_medicalarticles_of_resource(medicalarticle_id):
     """
     Get medicalarticles of the same resource.
     """
-    medicalarticle = storage.get(MedicalArticle, medicalarticle_id)
+    medicalarticle = storage.get(MedicalArticle, id=medicalarticle_id)
     if medicalarticle is None:
         abort(404, 'Not found')
     medical_articles = storage.all(MedicalArticle)
