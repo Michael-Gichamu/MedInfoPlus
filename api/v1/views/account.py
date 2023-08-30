@@ -3,8 +3,7 @@
 Flask route that serves sign up.
 """
 from api.v1.views import app_views
-from api.v1.app import app
-from flask import Flask, request, jsonify
+from flask import current_app, request, jsonify
 from datetime import datetime, timedelta
 from functools import wraps
 from models.user import User
@@ -12,12 +11,13 @@ from models import storage
 import jwt
 import os
 
+
 def generate_token(user_id):
     payload = {
         'sub': user_id,
         'exp': datetime.utcnow() + timedelta(days=1)
     }
-    token = jwt.encode(payload, app.config['SECRET_KEY'], algorithm='HS256')
+    token = jwt.encode(payload, current_app.config['SECRET_KEY'], algorithm='HS256')
     return token.decode('utf-8')
 
 def token_required(f):
@@ -32,7 +32,7 @@ def token_required(f):
             token = token.split(None, 1)[1]
         
         try:
-            data = jwt.decode(token, app.config['SECRET_KEY'], algorithm='HS256')
+            data = jwt.decode(token, current_app.config['SECRET_KEY'], algorithm='HS256')
             user_id = data['sub']
 
             user = storage.get(User, id=user_id)
