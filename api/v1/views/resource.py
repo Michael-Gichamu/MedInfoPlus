@@ -28,7 +28,7 @@ def get_resource(resource_id):
     """
     Retrieves resource based on the name.
     """
-    resource = storage.get(Resource, resource_id)
+    resource = storage.get(Resource, id=resource_id)
     if resource is None:
         abort(404, 'Not found')
     return jsonify(resource.to_dict())
@@ -52,7 +52,7 @@ def get_resource_medicalarticles(resource_id):
     """
     Retrieves medical articles of a Resource.
     """
-    resource = storage.get(Resource, resource_id)
+    resource = storage.get(Resource, id=resource_id)
     if resource is None:
         abort(404, 'Not found')
     medical_articles = storage.all(MedicalArticle)
@@ -66,7 +66,7 @@ def get_category_medicalarticles(resource_id):
     """
     Retrieves medical articles of a resource based on category.
    """
-    resource = storage.get(Resource, resource_id)
+    resource = storage.get(Resource, id=resource_id)
     if resource is None:
         abort(404, 'Not found')
     medical_articles = storage.all(MedicalArticle)
