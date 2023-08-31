@@ -17,6 +17,7 @@ export const ResourceCenterComponent: any = () => {
     const data = await datafromServer("medicalarticles");
     const symptomsData = [];
     const overviewtypesArray = [];
+
     for (let i = 0; i < data.length; i++) {
       if (data[i].category == "Symptoms & Diagnosis") {
         symptomsData.push({
@@ -61,9 +62,21 @@ export const ResourceCenterComponent: any = () => {
         </div>
         <div className="cards mt-5 ">
           <div className="first flex justify-center gap-4">
-            <DiabetesComponentCard text="Type 1 Diabetes" width="[10rem]" />
-            <DiabetesComponentCard text="Type 2 Diabetes" width="[5rem]" />
-            <DiabetesComponentCard text="Gestational Diabetes" width="[5rem]" />
+            <DiabetesComponentCard
+              key={1}
+              text="Type 1 Diabetes"
+              width="[10rem]"
+            />
+            <DiabetesComponentCard
+              key={2}
+              text="Type 2 Diabetes"
+              width="[5rem]"
+            />
+            <DiabetesComponentCard
+              key={3}
+              text="Gestational Diabetes"
+              width="[5rem]"
+            />
           </div>
           <div className="second flex justify-center gap-3 mt-5">
             <DiabetesComponentCard text="Symptoms" width="[6rem]" />
