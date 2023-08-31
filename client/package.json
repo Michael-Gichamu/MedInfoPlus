@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^3.1.0",
     "autoprefixer": "^10.4.15",
     "axios": "^1.5.0",
+    "jsonwebtoken": "^9.0.2",
     "postcss": "^8.4.28",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

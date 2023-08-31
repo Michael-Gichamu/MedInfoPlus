@@ -1,7 +1,7 @@
 import { ILoginData, IsignupData } from "../types/auth.types";
 import { apiDomain } from "../utils/api";
 
-const URL = apiDomain + "/auth";
+const URL = apiDomain + "/account/";
 
 export const getLoggedInUser = (): string => {
   const user: string = JSON.parse(localStorage.getItem("user") as string);
@@ -38,6 +38,10 @@ export const login = async (user: ILoginData) => {
     },
     body: JSON.stringify(user),
   });
+
+  if (res.status == 401) {
+    return res.status;
+  }
   if (!res.ok) {
     throw new Error("Network response was not ok!");
   }

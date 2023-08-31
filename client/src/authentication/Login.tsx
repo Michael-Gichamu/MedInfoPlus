@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import Error from "../components/Error";
@@ -24,21 +24,41 @@ export const Login: React.FC = () => {
   });
 
   const onSubmit = async (data: any) => {
-    console.log(data);
     const dataFromServer = await login(data);
 
     if (dataFromServer.error) {
       setError(dataFromServer.error);
+      toast("Login failed!");
     } else {
       reset();
+    }
+    if (dataFromServer.status == 401) {
+      console.log("unauthorized");
     }
     if (dataFromServer.token) {
       const { token } = dataFromServer;
       localStorage.setItem("user", JSON.stringify(token));
       toast("Login Success");
-      navigate("/articles");
+      setTimeout(() => {
+        navigate("/articles");
+      }, 3000);
+    } else {
+      toast("Check your credentials and try again");
     }
   };
+  const checkLoggedIn = () => {
+    const userdata = localStorage.getItem("user");
+    if (userdata) {
+      toast("You are already logged in");
+      setTimeout(() => {
+        navigate(-1);
+      }, 5000);
+    } else {
+    }
+  };
+  useEffect(() => {
+    checkLoggedIn();
+  }, []);
 
   return (
     <div className="h-screen sm:flex  ">
