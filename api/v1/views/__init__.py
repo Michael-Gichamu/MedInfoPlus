@@ -8,3 +8,4 @@ from api.v1.views.index import *
 from api.v1.views.resource import *
 from api.v1.views.medical_article import *
 from api.v1.views.account import *
+from api.v1.views.saved_medical_article import *
