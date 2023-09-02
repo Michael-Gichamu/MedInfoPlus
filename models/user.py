@@ -5,14 +5,16 @@ Contains class User.
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, String, Text
 from werkzeug.security import generate_password_hash, check_password_hash
-
+from models.saved_medical_article import SavedMedicalArticle
+from sqlalchemy.orm import relationship
 
 class User(BaseModel, Base):
     """Representation of User."""
     __tablename__ = 'user'
+    name = Column(String(60), nullable=False)
     email = Column(String(120), nullable=False)
     _password = Column(Text, nullable=False)
-    account_type = Column(String(60), nullable=False, default="patient")
+    saved_medicalarticles = relationship('SavedMedicalArticle', backref='resource', cascade='all, delete-orphan')
 
     def __init__(self, *args, **kwargs):
         """initializes resource"""
