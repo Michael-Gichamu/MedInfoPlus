@@ -66,3 +66,9 @@ jobs:
         run: |
           echo "User Class Tests"
           python3 -m unittest tests.test_models.test_user
+
+      - name: Run SavedMedicalArticle Class Tests
+        run: |
+          echo "SavedMedicalArticle Class Tests"
+          python3 -m unittest tests.test_models.test_saved_medical_article
+      
