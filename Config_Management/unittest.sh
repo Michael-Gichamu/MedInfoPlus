@@ -21,6 +21,9 @@ python3 -m unittest tests.test_models.test_resource
 echo "User Class Tests"
 python3 -m unittest tests.test_models.test_user
 
+echo "SavedMedicalArticle Class Tests"
+python3 -m unittest tests.test_models.test_saved_medical_article
+
 # Back to development
 source Config_Management/dev_config.sh
 printenv | grep MedInfoPlus_ENV
