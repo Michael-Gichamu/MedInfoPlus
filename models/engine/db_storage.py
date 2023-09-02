@@ -7,12 +7,13 @@ from models.base_model import BaseModel, Base
 from models.medical_article import MedicalArticle
 from models.resource import Resource
 from models.user import User
+from models.saved_medical_article import SavedMedicalArticle
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"MedicalArticle": MedicalArticle, "Resource": Resource, "User": User}
+classes = {"MedicalArticle": MedicalArticle, "Resource": Resource, "User": User, "SavedMedicalArticle": SavedMedicalArticle}
 
 
 class DBStorage:
