@@ -61,3 +61,8 @@ jobs:
         run: |
           echo "Resource Class Tests"
           python3 -m unittest tests.test_models.test_resource
+
+      - name: Run User Class Tests
+        run: |
+          echo "User Class Tests"
+          python3 -m unittest tests.test_models.test_user

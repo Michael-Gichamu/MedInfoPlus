@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Flask Application that serves as the RESTAPI."""
 from flask import Flask, jsonify, make_response
+from flask_cors import CORS
 from models import storage
 from api.v1.views import app_views
 import os
