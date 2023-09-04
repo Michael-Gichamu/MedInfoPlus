@@ -1,2 +1,12 @@
+# Project Requirements
+
+## Python Version
+- Python 3.0 or higher
+
+## Python Packages
+mysqlclient
 sqlalchemy
 werkzeug
+Flask
+gunicorn
+Flask-CORS
