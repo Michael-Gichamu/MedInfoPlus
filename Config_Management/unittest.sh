@@ -8,6 +8,14 @@
 source Config_Management/test_config.sh
 printenv | grep MedInfoPlus_ENV
 
+# Setup Database if not exists.
+echo "Set Up Test Database"
+cat Config_Management/setup_mysql_test.sql | sudo mysql -hlocalhost -uroot -pMedInfoPlus_test_pwd
+
+# Confirm Set Up
+echo "Confirmation of Set Up."
+echo "SHOW GRANTS FOR 'MedInfoPlus_test'@'localhost';" | sudo mysql -uroot
+
 # Run tests
 echo "BaseModel Class Tests"
 python3 -m unittest tests.test_models.test_base_model
