@@ -1,49 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Article } from "../../types/types";
 import { TitleCardComponent } from "../../components/Tcard";
 import { SmallCardComponent } from "../../components/Scard";
 import { datafromServer } from "../../actions/med.actions";
+
 import { findMostRecentArticle } from "../../actions/recentarticle.actions";
 
 export const HomeComponentPage: React.FC = () => {
-  const [articles, setArticles] = useState<
-    {
-      name: string;
-      summary: string;
-      title: string;
-      id: number;
-      image: string;
-    }[]
-  >([]);
-  const [topArticle, setTopArticle] = useState<
-    {
-      name: string;
-      summary: string;
-      title: string;
-      id: number;
-      image: string;
-    }[]
-  >([]);
-  const [recentArticle, setrecentArticle] = useState<
-    {
-      name: string;
-      summary: string;
-      title: string;
-      id: number;
-      image: string;
-    }[]
-  >([]);
+  const [articles, setArticles] = useState<Article[]>([]);
+  const [topArticle, setTopArticle] = useState<Article[]>([]);
+  const [recentArticle, setrecentArticle] = useState<Article[]>([]);
   const articleArray: any = [];
   const topArticleArray: any = [];
   const recentArticleArray: any = [];
 
-  const navigate = useNavigate();
-  const gotoPost = (article: string) => {
-    navigate(`/article/${article}`);
-  };
   const getdata = async () => {
     const response = await datafromServer("medicalarticles/toparticles");
-    console.log(response);
     for (let i = 0; i < response.length; i++) {
       articleArray.push({
         name: response[i].category,
@@ -64,38 +36,33 @@ export const HomeComponentPage: React.FC = () => {
   useEffect(() => {
     getdata();
   }, []);
-  console.log(articles);
 
   return (
     <>
       <div className=" flex flex-col min-h-[77vh] bg-gray-200">
         {articles.map((article: any) => (
-          <div
-            onClick={() => gotoPost(article.id)}
-            className=" flex justify-center cursor-pointer    pt-4  text-black text-3xl"
-          >
+          <div className=" flex justify-center cursor-pointer    pt-4  text-black text-3xl">
             <TitleCardComponent
               image={article.image}
               key={article.id}
+              id={article.id}
               content={article.summary}
               title={article.title}
             />
           </div>
         ))}
-        <div className=" px-[4rem] flex flex-col justify-center ">
+        <div className=" px-[4rem] flex flex-col justify-center  ">
           <div className=" mt-5 bg-white w-[18rem] h-[2rem] flex items-center font-bold justify-center ">
             Todays Top stories
           </div>
           {topArticle.map((article): any => (
-            <div
-              onClick={() => gotoPost(`article/${article.id}`)}
-              className=" cursor-pointer"
-            >
+            <div className=" cursor-pointer">
               <SmallCardComponent
                 image={article.image}
                 content={article.summary}
                 title={article.title}
                 key={article.id}
+                id={article.id}
               />
             </div>
           ))}
@@ -105,15 +72,13 @@ export const HomeComponentPage: React.FC = () => {
             More Recent Articles
           </div>
           {recentArticle.map((article) => (
-            <div
-              onClick={() => gotoPost("/article/1")}
-              className=" cursor-pointer"
-            >
+            <div className=" cursor-pointer">
               <SmallCardComponent
                 image={article.image}
                 title={article.title}
                 content={article.summary}
                 key={article.id}
+                id={article.id}
               />
             </div>
           ))}

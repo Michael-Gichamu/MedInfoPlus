@@ -1,18 +1,14 @@
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
-  const [selectedCondition, setSelectedCondition] = useState<string>("/");
-
   const navigate = useNavigate();
   const handleConditionChange = (
     event: React.ChangeEvent<HTMLSelectElement>
   ) => {
     const selectedValue = event.target.value;
-    setSelectedCondition(selectedValue);
     navigate(`${selectedValue}`);
   };
-  console.log(selectedCondition);
 
   return (
     <div className="h-[100%] w-[100%] bg-blue-500 flex gap-4 justify-between">

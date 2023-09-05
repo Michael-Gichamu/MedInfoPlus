@@ -9,6 +9,7 @@ import { LoginSchema } from "../schemas/login.schema";
 import { useForm } from "react-hook-form";
 import { login } from "../actions/auth.actions";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Cookies from "js-cookie";
 
 import "react-toastify/dist/ReactToastify.css";
 export const Login: React.FC = () => {
@@ -36,7 +37,11 @@ export const Login: React.FC = () => {
       console.log("unauthorized");
     }
     if (dataFromServer.token) {
-      const { token } = dataFromServer;
+      const { token, user_data } = dataFromServer;
+      Cookies.set("user_data", user_data, { expires: 1 });
+      // console.log(user_data);
+      localStorage.setItem("user_data", JSON.stringify(user_data.email));
+
       localStorage.setItem("user", JSON.stringify(token));
       toast("Login Success");
       setTimeout(() => {
