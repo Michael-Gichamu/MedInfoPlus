@@ -1,23 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { datafromServer } from "../../actions/med.actions";
 import { DiabetesComponentCard } from "../../components/Dcard";
 export const ArticlesComponent: React.FC = (): JSX.Element => {
-  const { id } = useParams();
+  // const { id } = useParams();
   const [error, setError] = useState<any>();
-  const [data, setData] = useState<any>();
+  const [FirstDataimage, setFirstDataimage] = useState<any>();
+  const [SecondDataimage, setSecondDataimage] = useState<any>();
+  const [FirstTitle, setFirstTitle] = useState<any>();
+  const [SecondTitle, setSecondTitle] = useState<any>();
 
   const getData = async () => {
     try {
-      const response = await datafromServer("medicalarticles" + "/" + `${id}`);
-      setData(response);
+      const response = await datafromServer("medicalarticles/toparticles");
+      // setData(response);
+      setFirstDataimage(response[0].image);
+      setSecondDataimage(response[1].image);
+      setFirstTitle(response[0].title);
+      setSecondTitle(response[1].title);
     } catch (error) {
       setError(error);
     }
   };
   useEffect(() => {
     getData();
-    console.log(data);
+    // console.log(data);
+    console.log(FirstDataimage);
+    console.log(SecondDataimage);
   }, []);
   const text = "Diabetes";
   if (!error) {
@@ -54,15 +63,17 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10">
-              <div className=" bg-green-400  flex h-[10rem] w-[10rem] text-center justify-center items-center">
-                Article Image
+              <div className=" mb-4 underline">Recomended Articles </div>
+              <div className="">{FirstTitle}</div>
+              <div className="   flex h-[10rem] w-[10rem] text-center justify-center items-center">
+                <img src={`/${FirstDataimage}`} alt={FirstDataimage} />
               </div>
             </div>
           </div>
           <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
             <div className="text flex flex-col w-[70%]">
               <p className="text font-medium text-lg  mt-[4rem]">
-                Whaat is {text}
+                What is {text}
               </p>
               <div className=" flex-wrap flex ">
                 Diabetes is a chronic medical condition that affects how your
@@ -88,8 +99,9 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10 ">
+              <div className="mb-2">{SecondTitle}</div>
               <div className=" bg-green-400  flex h-[10rem] w-[10rem] text-center justify-center items-center">
-                Article Image
+                <img src={`/${SecondDataimage}`} alt={SecondDataimage} />
               </div>
             </div>
           </div>
@@ -140,9 +152,9 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10 ">
-              <div className=" bg-green-400  flex h-[10rem] w-[10rem] text-center justify-center items-center">
+              {/* <div className=" bg-green-400  flex h-[10rem] w-[10rem] text-center justify-center items-center">
                 Article Image
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
