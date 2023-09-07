@@ -43,6 +43,11 @@ export const ResourceCenterComponent: any = () => {
   };
 
   useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/auth/login");
+    }
+
     getdata();
   }, []);
   const navigate = useNavigate();

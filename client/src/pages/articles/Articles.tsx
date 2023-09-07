@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import { datafromServer } from "../../actions/med.actions";
 import { DiabetesComponentCard } from "../../components/Dcard";
+import { useNavigate } from "react-router-dom";
 export const ArticlesComponent: React.FC = (): JSX.Element => {
-  // const { id } = useParams();
+  const navigate = useNavigate();
   const [error, setError] = useState<any>();
   const [FirstDataimage, setFirstDataimage] = useState<any>();
   const [SecondDataimage, setSecondDataimage] = useState<any>();
@@ -13,7 +14,6 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
   const getData = async () => {
     try {
       const response = await datafromServer("medicalarticles/toparticles");
-      // setData(response);
       setFirstDataimage(response[0].image);
       setSecondDataimage(response[1].image);
       setFirstTitle(response[0].title);
@@ -23,10 +23,12 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
     }
   };
   useEffect(() => {
+    const user = localStorage.getItem("user_data");
+    if (!user) {
+      navigate("/auth/login");
+    }
+
     getData();
-    // console.log(data);
-    console.log(FirstDataimage);
-    console.log(SecondDataimage);
   }, []);
   const text = "Diabetes";
   if (!error) {

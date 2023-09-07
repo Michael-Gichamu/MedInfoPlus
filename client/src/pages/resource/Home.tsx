@@ -5,8 +5,10 @@ import { SmallCardComponent } from "../../components/Scard";
 import { datafromServer } from "../../actions/med.actions";
 
 import { findMostRecentArticle } from "../../actions/recentarticle.actions";
+import { useNavigate } from "react-router-dom";
 
 export const HomeComponentPage: React.FC = () => {
+  const navigate = useNavigate();
   const [articles, setArticles] = useState<Article[]>([]);
   const [topArticle, setTopArticle] = useState<Article[]>([]);
   const [recentArticle, setrecentArticle] = useState<Article[]>([]);
@@ -34,6 +36,11 @@ export const HomeComponentPage: React.FC = () => {
   };
 
   useEffect(() => {
+    const user = localStorage.getItem("user");
+    if (!user) {
+      navigate("/auth/login");
+    }
+
     getdata();
   }, []);
 
