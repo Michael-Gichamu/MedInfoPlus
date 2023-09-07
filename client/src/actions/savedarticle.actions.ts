@@ -2,6 +2,7 @@ import { apiDomain } from "../utils/api";
 const base_url = apiDomain;
 const Auth = localStorage.getItem("user");
 const user = localStorage.getItem("user_data");
+
 export const saveService = async (id: string) => {
   const response = await fetch(base_url + `/${user}/${id}`, {
     method: "POST",
@@ -29,6 +30,7 @@ export const fetchSaved = async (user: string) => {
   });
   if (!response.ok) {
     throw new Error("Failed to save article.");
+    return;
   }
 
   const savedArticles = await response.json();

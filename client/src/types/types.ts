@@ -16,3 +16,7 @@ export interface Article {
   id: number;
   image: string;
 }
+export interface LoadingProps {
+  type: string | undefined;
+  color: string;
+}

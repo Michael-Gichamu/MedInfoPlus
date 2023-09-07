@@ -25,30 +25,34 @@ export const Login: React.FC = () => {
   });
 
   const onSubmit = async (data: any) => {
-    const dataFromServer = await login(data);
+    try {
+      const dataFromServer = await login(data);
 
-    if (dataFromServer.error) {
-      setError(dataFromServer.error);
-      toast("Login failed!");
-    } else {
-      reset();
-    }
-    if (dataFromServer.status == 401) {
-      console.log("unauthorized");
-    }
-    if (dataFromServer.token) {
-      const { token, user_data } = dataFromServer;
-      Cookies.set("user_data", user_data, { expires: 1 });
-      // console.log(user_data);
-      localStorage.setItem("user_data", JSON.stringify(user_data.email));
+      if (dataFromServer.error) {
+        setError(dataFromServer.error);
+        toast("Login failed!");
+      } else {
+        reset();
+      }
+      if (dataFromServer.status == 401) {
+        console.log("unauthorized");
+      }
+      if (dataFromServer.token) {
+        const { token, user_data } = dataFromServer;
+        Cookies.set("user_data", user_data, { expires: 1 });
+        // console.log(user_data);
+        localStorage.setItem("user_data", JSON.stringify(user_data.email));
 
-      localStorage.setItem("user", JSON.stringify(token));
-      toast("Login Success");
-      setTimeout(() => {
-        navigate("/articles");
-      }, 3000);
-    } else {
-      toast("Check your credentials and try again");
+        localStorage.setItem("user", JSON.stringify(token));
+        toast("Login Success");
+        setTimeout(() => {
+          navigate("/articles");
+        }, 3000);
+      } else {
+        toast("Check your credentials and try again");
+      }
+    } catch (error) {
+      toast("Log in failed! try again later");
     }
   };
   const checkLoggedIn = () => {
