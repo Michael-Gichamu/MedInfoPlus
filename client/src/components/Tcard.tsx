@@ -20,6 +20,8 @@ export const TitleCardComponent: React.FC<TcardType> = ({
     try {
       const saved = await saveService(str_id);
       setText("Saved");
+      console.log(str_id, saved);
+
       return saved;
     } catch (error) {
       console.log(error);
@@ -28,10 +30,10 @@ export const TitleCardComponent: React.FC<TcardType> = ({
   return (
     <>
       <div className="flex flex-col py-4 ">
-        <div className=" w-[90vw] bg-white h-[15rem] min-h-fit flex  items-center ">
-          <div className=" h-[80%] flex justify-center mx-5 w-[20%]   items-center">
+        <div className=" w-[100vw] sm:w-[90vw] bg-white sm:h-[15rem] min-h-fit flex  items-center ">
+          <div className=" h-[80%] flex justify-center sm:mx-5 sm:w-[20%]   items-center">
             <div
-              className=" text-center mx-auto my-auto "
+              className=" text-center mx-auto my-auto hidden sm:block "
               onClick={() => gotoPost(id)}
             >
               <img src={`/${image}`} alt={`${image}`} />
@@ -45,9 +47,9 @@ export const TitleCardComponent: React.FC<TcardType> = ({
               <p className="text-black text-sm ">Content:</p>
               <p className="  text-xl">{content}</p>
             </div>
-            <div className="save flex justify-end mr-4 overflow-hidden ">
+            <div className=" save flex justify-end mr-4 overflow-hidden ">
               <button
-                className="flex gap-3 border-lime-300 text-sm  border"
+                className="flex gap-3 rounded-md bg-blue-500 border-none text-sm"
                 onClick={() => handleClick(id)}
               >
                 <p className="mt-2 p-1">{text}</p>

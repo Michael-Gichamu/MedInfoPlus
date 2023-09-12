@@ -40,7 +40,7 @@ export const SavedArticleComponent = () => {
       Saved Article
       {isLoading ? (
         <div className="mx-auto my-auto flex justify-center items-center">
-          <LoadingComponent color="#0c0c0c" />
+          <LoadingComponent color="#0c0c0c" type="" />
         </div>
       ) : (
         <div>Loading complete</div>
