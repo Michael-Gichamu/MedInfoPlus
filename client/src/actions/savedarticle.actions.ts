@@ -3,7 +3,7 @@ const base_url = apiDomain;
 const Auth = localStorage.getItem("user");
 const user = localStorage.getItem("user_data");
 
-export const saveService = async (id: string) => {
+export const saveService = async (id: string | number) => {
   const response = await fetch(base_url + `/${user}/${id}`, {
     method: "POST",
     headers: {
