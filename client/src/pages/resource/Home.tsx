@@ -3,7 +3,6 @@ import { Article } from "../../types/types";
 import { TitleCardComponent } from "../../components/Tcard";
 import { SmallCardComponent } from "../../components/Scard";
 import { datafromServer } from "../../actions/med.actions";
-
 import { findMostRecentArticle } from "../../actions/recentarticle.actions";
 import { useNavigate } from "react-router-dom";
 import { LoadingComponent } from "../../components/Loading";
@@ -19,16 +18,23 @@ export const HomeComponentPage: React.FC = () => {
 
   const getdata = async () => {
     const response = await datafromServer("medicalarticles/toparticles");
-    for (let i = 0; i < response.length; i++) {
-      articleArray.push({
-        name: response[i].category,
-        summary: response[i].summary,
-        title: response[i].title,
-        id: response[i].id,
-        image: response[i].image,
-      });
-    }
+    // for (let i = 0; i < response.length; i++) {
+    articleArray.push({
+      name: response[0].category,
+      summary: response[0].summary,
+      title: response[0].title,
+      id: response[0].id,
+      image: response[0].image,
+    });
+    articleArray.push({
+      name: response[1].category,
+      summary: response[1].summary,
+      title: response[1].title,
+      id: response[1].id,
+      image: response[1].image,
+    });
     setArticles(articleArray);
+
     topArticleArray.push(response[0]);
     setTopArticle(topArticleArray);
     const mostRecentArticle = findMostRecentArticle(response);

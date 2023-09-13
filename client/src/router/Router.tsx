@@ -14,7 +14,7 @@ import { ArticlesComponent } from "../pages/articles/Articles";
 const routes = createRoutesFromElements([
   <Route path="/" element={<LandingPage />} />,
   <Route path="/" element={<AppLayout />}>
-    <Route path="/diabetes" element={<ResourceCenterComponent />} />
+    <Route path="/resource/:slug" element={<ResourceCenterComponent />} />
     <Route path="/dashboard" element={<SavedArticleComponent />} />
     <Route path="/auth/signup" element={<SignUp />} />
     <Route path="/auth/login" element={<Login />} />
