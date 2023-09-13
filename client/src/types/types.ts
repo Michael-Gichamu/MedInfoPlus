@@ -20,3 +20,23 @@ export interface LoadingProps {
   type: string | undefined;
   color: string;
 }
+export interface MedicalArticle {
+  category: string;
+  content: string;
+  created_at: string;
+  id: string;
+  image: string;
+  query_count: number;
+  resource_Id: string;
+  summary: string;
+  title: string;
+  updated_at: string;
+}
+
+export interface CategoryData {
+  [key: string]: MedicalArticle[];
+}
+export interface articles {
+  category: string;
+  articles: MedicalArticle[];
+}

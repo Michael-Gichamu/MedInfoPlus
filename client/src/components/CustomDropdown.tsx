@@ -18,15 +18,18 @@ const CustomDropdown = ({
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
     setIsOpen(false);
-    console.log(selectedOption);
+    console.log(option);
 
-    if (selectedOption === "Diabetes") {
-      navigate("/diabetes");
+    if (option === "Diabetes") {
+      navigate("/resource/4c796d29-01c1-4c9f-88ac-a5bcc3b91a94");
     }
-    if (
-      selectedOption === "All articles" ||
-      selectedOption === "Fitness & Exercise"
-    ) {
+    if (option === "Fitness & Exercise") {
+      navigate("/resource/83552b25-4559-4bb2-8ccb-a5508dfce408");
+    }
+    if (option === "Allergies") {
+      navigate("/resource/76082aba-4480-4b0e-8775-2da3a3a25dd8");
+    }
+    if (option === "All articles") {
       navigate("/articles");
     }
   };
