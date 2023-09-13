@@ -8,13 +8,13 @@ from models.medical_article import MedicalArticle
 from models.resource import Resource
 from models.user import User
 from models.saved_medical_article import SavedMedicalArticle
+from models.subscriber import Subscriber
 from os import getenv
 import sqlalchemy
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-classes = {"MedicalArticle": MedicalArticle, "Resource": Resource, "User": User, "SavedMedicalArticle": SavedMedicalArticle}
-
+classes = {"MedicalArticle": MedicalArticle, "Resource": Resource, "User": User, "SavedMedicalArticle": SavedMedicalArticle, "Subscriber": Subscriber}
 
 class DBStorage:
     """
@@ -82,7 +82,7 @@ class DBStorage:
             if 'id' in kwargs:
                 obj = self.__session.query(cls).filter(cls.id == kwargs['id']).first()
                 return obj
-            elif cls == classes['User'] and 'email' in kwargs:
+            elif cls == classes['User'] or classes['Subscriber'] and 'email' in kwargs:
                 obj = self.__session.query(cls).filter(cls.email == kwargs['email']).first()
                 return obj
         except Exception as e:
