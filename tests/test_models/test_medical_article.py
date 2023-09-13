@@ -18,7 +18,7 @@ class TestMedicalArticle(unittest.TestCase):
         self.medicalarticle = MedicalArticle()
 
     def test_is_subclass(self):
-        """Test that City is a subclass of BaseModel"""
+        """Test that MedicalArticle is a subclass of BaseModel"""
         self.assertIsInstance(self.medicalarticle, BaseModel)
         self.assertTrue(hasattr(self.medicalarticle, "id"))
         self.assertTrue(hasattr(self.medicalarticle, "created_at"))
