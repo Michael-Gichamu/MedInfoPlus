@@ -12,7 +12,7 @@ class User(BaseModel, Base):
     """Representation of User."""
     __tablename__ = 'user'
     name = Column(String(60), nullable=False)
-    email = Column(String(120), nullable=False)
+    email = Column(String(120), unique=True, nullable=False)
     _password = Column(Text, nullable=False)
     saved_medicalarticles = relationship('SavedMedicalArticle', backref='resource', cascade='all, delete-orphan')
 
