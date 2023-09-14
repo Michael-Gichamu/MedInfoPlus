@@ -25,10 +25,17 @@ def get_saved_medicalarticles(user_Id):
     user = storage.get(User, id=user_Id)
     if user_Id is None:
         abort(404, 'Not found')
-    user_saved_medicalarticles = get_user_saved_medicalarticles(user_Id)    
+    user_saved_medicalarticles = get_user_saved_medicalarticles(user_Id)
 
-    return jsonify(user_saved_medicalarticles)
+    medicalarticles_list = []
+    medicalarticles = storage.all(MedicalArticle)
 
+    for medicalarticle in medicalarticles.values():
+        for user_saved_medicalarticle in user_saved_medicalarticles:
+            if user_saved_medicalarticle['saved_medicalarticle_id'] == medicalarticle.id:
+                medicalarticles_list.append(medicalarticle.to_dict())
+
+    return jsonify(medicalarticles_list)
 
 @app_views.route('/saved_medicalarticles/<user_Id>/<medical_article_id>', methods=['POST'])
 def get_post_saved_medicalarticle(user_Id, medical_article_id):
