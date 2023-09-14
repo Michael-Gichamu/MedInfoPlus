@@ -1,17 +1,20 @@
 import { apiDomain } from "../utils/api";
 const base_url = apiDomain;
-const Auth = localStorage.getItem("user");
-const user = localStorage.getItem("user_data");
+const user = localStorage.getItem("user_id");
 
-export const saveService = async (id: string | number) => {
-  const response = await fetch(base_url + `/${user}/${id}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${Auth}`,
-    },
-    body: JSON.stringify(id),
-  });
+export const saveService = async (id: any) => {
+  const sanitizedUser = user?.replace(/"/g, "");
+  const sanitizedId = id.replace(/"/g, "");
+
+  const response = await fetch(
+    `${base_url}saved_medicalarticles/${sanitizedUser}/${sanitizedId}`,
+    {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to save article.");
   }
@@ -19,20 +22,24 @@ export const saveService = async (id: string | number) => {
   const savedArticle = await response.json();
   return savedArticle;
 };
-export const fetchSaved = async (user: string) => {
-  const response = await fetch(base_url + `/${user}`, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${Auth}`,
-    },
-    body: JSON.stringify(user),
-  });
+export const fetchSaved = async () => {
+  const sanitizedUser = user?.replace(/"/g, "");
+
+  const response = await fetch(
+    base_url + `saved_medicalarticles` + `/${sanitizedUser}`,
+    {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
   if (!response.ok) {
     throw new Error("Failed to save article.");
     return;
   }
 
   const savedArticles = await response.json();
+
   return savedArticles;
 };
