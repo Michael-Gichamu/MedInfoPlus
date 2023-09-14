@@ -1,6 +1,6 @@
 # MEDINFOPLUS
 
-![MEDINFOPLUS Logo](/public/icon1.png)
+![MEDINFOPLUS Logo](./public/icon1.png)
 
 ## Table of Contents
 
