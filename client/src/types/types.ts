@@ -40,3 +40,7 @@ export interface articles {
   category: string;
   articles: MedicalArticle[];
 }
+export interface LandingHeaderProps {
+  aboutSectionRef: React.RefObject<HTMLDivElement>;
+  featureSectionRef: React.RefObject<HTMLDivElement>;
+}

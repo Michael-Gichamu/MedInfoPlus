@@ -3,20 +3,29 @@ import { LandingHeader } from "./components/LandingHeader";
 import image1 from "../../../public/slider1.jpg";
 import image2 from "../../../public/slider2.jpg";
 import image3 from "../../../public/slider3.jpg";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Testimonials } from "./components/Testimonials";
 export const LandingPage = (): JSX.Element => {
   const [images] = useState<any>([image1, image2, image3]);
+  const aboutSectionRef = useRef(null);
+  const featureRef = useRef(null);
+
   return (
     <>
       <div className=" h-[100vh] w-full  flex flex-col overflow-y-scroll bg-black ">
         <div className=" top-0  w-[100%]  sticky ">
-          <LandingHeader />
+          <LandingHeader
+            aboutSectionRef={aboutSectionRef}
+            featureSectionRef={featureRef}
+          />
         </div>
         <div className="mt-[0.4px]">
           <ImageSlider images={images} />
         </div>
-        <div className="mt-[1.6rem] gap-5  bg-gray-800 flex-col flex justify-center w-full">
+        <div
+          ref={featureRef}
+          className="mt-[1.6rem] gap-5  bg-gray-800 flex-col flex justify-center w-full"
+        >
           <p className=" text-xl w-full text-center mt-3  text-white">
             Welcome to MedInfoPlus
           </p>
@@ -36,7 +45,11 @@ export const LandingPage = (): JSX.Element => {
             className="w-[45%] rounded-sm"
           />
         </div>
-        <div className="flex justify-center flex-col bg-gray-800">
+        <div
+          id="about"
+          ref={aboutSectionRef}
+          className="flex justify-center flex-col bg-gray-800"
+        >
           <p className=" text-white text-xl text-center  font-medium">About</p>
           <p className=" text-center text-gray-400">What inspired us ?</p>
           <p className="text-white mt-4 p-3  bg-gray-900">

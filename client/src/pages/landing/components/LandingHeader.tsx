@@ -1,6 +1,18 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export const LandingHeader: React.FC = () => {
+import { LandingHeaderProps } from "../../../types/types";
+export const LandingHeader: React.FC<LandingHeaderProps> = ({
+  aboutSectionRef,
+  featureSectionRef,
+}) => {
+  const scrollToAbout = () => {
+    aboutSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+  const scrollToFeature = () => {
+    featureSectionRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div>
       <div className=" static flex justify-between text-white bg-blue-400 w-full h-[100%] py-[1.5rem]">
@@ -13,10 +25,16 @@ export const LandingHeader: React.FC = () => {
           MEDINFOPLUS
         </div>
         <div className="flex gap-[5rem] mr-[3rem] text-lg">
-          <div className="">Features</div>
-          <div className="">About</div>
+          <Link to="" onClick={scrollToFeature} className="">
+            Features
+          </Link>
+          <Link onClick={scrollToAbout} to="" className="">
+            About
+          </Link>
           <div className="">Login</div>
-          <div className="">Newsletter</div>
+          <Link to="" onClick={scrollToAbout} className="">
+            Newsletter
+          </Link>
         </div>
       </div>
     </div>

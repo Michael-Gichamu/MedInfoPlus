@@ -19,10 +19,6 @@ const ImageSlider = ({ images }: { images: any }) => {
     nextSlide();
   };
 
-  //   setInterval(() => {
-  //     nextSlide();
-  //   }, 3000);
-  //   const translateX = -currentIndex * 100;
   useEffect(() => {
     const interval = setInterval(handleAutoSlide, 3000);
     return () => clearInterval(interval);
