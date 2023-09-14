@@ -34,13 +34,13 @@ Are you looking for reliable medical information? Want to stay informed about th
 Here are some screenshots of the MEDINFOPLUS website:
 
 **Homepage**
-![Homepage](/public/articles.png)
+![Homepage](./public/articles.png)
 
 <!-- **Search Results**
 ![Search Results](./screenshots/search_results.png) -->
 
 **Article Page**
-![Article Page](/public/resource.png)
+![Article Page](./public/resource.png)
 
 <!-- **Healthcare Provider Directory**
 ![Healthcare Provider Directory](./screenshots/provider_directory.png) -->
