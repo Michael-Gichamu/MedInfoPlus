@@ -9,10 +9,6 @@ from functools import wraps
 from models.user import User
 from models.subscriber import Subscriber
 from models import storage
-import time
-from datetime import datetime, date
-import schedule
-from flask_mail import Mail, Message
 import jwt
 import os
 
@@ -91,7 +87,7 @@ def login():
     if not user:
         return jsonify({'message': 'Invalid email'}), 401
 
-    if nemail = data.get('email')ot user.check_password(password):
+    if not user.check_password(password):
         return jsonify({'message': 'Invalid password'}), 401
 
     token = generate_token(user.email)
@@ -153,44 +149,3 @@ def access_users(user):
     for user in users.values():
         users_list.append(user.to_dict())
     return jsonify(users_list)
-
-@app_views.route('/account/subscribe', methods=['POST'])
-def subscribe():
-    data = request.get_json()
-    email = data.get('email')
-
-    if storage.get(Subscriber, email=email):
-        return jsonify({'message': 'Subscriber Already exists'})
-    if email:
-        subscriber = Subscriber(**data)
-        storage.new(subscriber)
-        storage.save()
-        storage.reload()
-        return jsonify({'message': 'Subscriber created successfully'}), 201
-    else:
-        return jsonify({'message': 'Missing required fields'}), 400
-
-def send_newsletter()
-    """Fetch articles published today from database."""
-    today = date.today
-
-    medicalarticles_list = []
-    medicalarticles = storage.all(MedicalArticle)
-    for medicalarticle in medicalarticles.values():
-        if medicalarticle.updated_at = today:
-            medicalarticles_list.append(medicalarticle.to_dict())
-    
-    today_articles = medicalarticles_list
-    if today_articles:
-        newsletter_content = "<h1>Today's Top Stories<h1>"
-        for article in today_articles:
-            newsletter_content += f"<h2>{article.title}<h2>"
-            newsletter_content += f"<h2>{article.summary}<h2>"
-
-    subscribers = storage.all(Subscriber)
-    for subscriber in subscribers:
-        msg = Message("Today's Top Stories", sender='MedInfoPlusAdmin@gmail.com', recepient=subscriber.email)
-        msg.html = newsletter.content
-        mail.send(msg)
-
-schedule.every().day.at("8:00").do(send_newsletter)
