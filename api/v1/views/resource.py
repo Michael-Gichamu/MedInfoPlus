@@ -56,10 +56,18 @@ def get_resource_medicalarticles(resource_id):
     if resource is None:
         abort(404, 'Not found')
     medical_articles = storage.all(MedicalArticle)
-    resource_medical_articles = [medical_article.to_dict()
-                                 for medical_article in medical_articles.values()
-                                 if medical_article.resource_Id == resource.id]
+
+    def replace_newline_with_line_break(medical_article):
+        medical_article_dict = medical_article.to_dict()
+        medical_article_dict['content'] = medical_article_dict['content'].replace('\n', '<br>')
+        return medical_article_dict
+    resource_medical_articles = [
+        replace_newline_with_line_break(medical_article)
+        for medical_article in medical_articles.values()
+        if medical_article.resource_Id == resource.id
+    ]
     return jsonify(resource_medical_articles)
+
 
 @app_views.route('/resources/<resource_id>/category/medicalarticles', methods=['GET'])
 def get_category_medicalarticles(resource_id):
@@ -70,13 +78,18 @@ def get_category_medicalarticles(resource_id):
     if resource is None:
         abort(404, 'Not found')
     medical_articles = storage.all(MedicalArticle)
-    category_medical_articles = {}
+    category_medical_articles = []
 
+    articles_by_category = {}
     for medical_article in medical_articles.values():
         if medical_article.resource_Id == resource.id:
             category = medical_article.category
-            if category not in category_medical_articles:
-                category_medical_articles[category] = []
-            category_medical_articles[category].append(medical_article.to_dict())
+            if category not in articles_by_category:
+                articles_by_category[category] = []
+            articles_by_category[category].append(medical_article.to_dict())
+
+    for category, articles in articles_by_category.items():
+        category_data = {category: articles}
+        category_medical_articles.append(category_data)
 
     return jsonify(category_medical_articles)
