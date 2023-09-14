@@ -54,7 +54,7 @@ const Header: React.FC = () => {
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
           <div className="">Health Cost Estimator</div>
         </div>
-        {logedin ? (
+        {!logedin ? (
           <div className="flex">
             <div className=" p-5 border-none focus:outline-none cursor-pointer">
               <div onClick={() => navigate("/auth/login")} className="">

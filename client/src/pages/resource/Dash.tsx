@@ -6,17 +6,18 @@ import { useNavigate } from "react-router-dom";
 export const SavedArticleComponent = () => {
   const [articles, setArticles] = useState([]);
   const [isLoading, setLoading] = useState<boolean>(true);
-  const user = localStorage.getItem("user_data");
 
-  const str_user = JSON.stringify(user);
   const navigate = useNavigate();
 
   const data = async () => {
     try {
-      const resp = await fetchSaved(str_user);
+      const resp = await fetchSaved();
       setLoading(false);
+      setArticles(resp);
+
       if (resp) {
-        setArticles(resp.data);
+        console.log(articles);
+
         setLoading(false);
       } else {
         console.log("Error fetching");
@@ -27,7 +28,7 @@ export const SavedArticleComponent = () => {
     }
   };
   useEffect(() => {
-    const user = localStorage.getItem("user_data");
+    const user = localStorage.getItem("user");
     if (!user) {
       navigate("/auth/login");
     }
