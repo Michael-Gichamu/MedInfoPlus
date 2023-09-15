@@ -1,6 +1,11 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
+/* html{
+    scroll-behavior: smooth !important;
+} */
+
 .black-bg{
     background-color: #181A1B;
 }

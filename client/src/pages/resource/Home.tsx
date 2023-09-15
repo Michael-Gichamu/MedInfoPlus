@@ -69,6 +69,7 @@ export const HomeComponentPage: React.FC = () => {
                 id={article.id}
                 content={article.summary}
                 title={article.title}
+                saved={false}
               />
             </div>
           ))}
@@ -84,6 +85,7 @@ export const HomeComponentPage: React.FC = () => {
                   title={article.title}
                   key={article.id}
                   id={article.id}
+                  saved={false}
                 />
               </div>
             ))}
@@ -100,6 +102,7 @@ export const HomeComponentPage: React.FC = () => {
                   content={article.summary}
                   key={article.id}
                   id={article.id}
+                  saved={false}
                 />
               </div>
             ))}

@@ -1,0 +1,37 @@
+.prev-button,
+.next-button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(128, 120, 120, 0.5);
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.prev-button {
+  left: 20px;
+}
+
+.next-button {
+  right: 20px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+/* ImageSlider.css */
+.image-slider-container {
+    overflow: hidden;
+    position: relative;
+    max-height: 400px;
+    /* Adjust the height as needed */
+}
+
+.image-slider {
+    display: flex;
+    transition: transform 0.5s ease;
+    /* Add a smooth transition */
+}

@@ -40,6 +40,7 @@ export const Login: React.FC = () => {
         const { token, user_data } = dataFromServer;
         // console.log(user_data);
         localStorage.setItem("user_id", user_data.id);
+        localStorage.setItem("user_name", user_data.name);
 
         localStorage.setItem("user", JSON.stringify(token));
         toast("Login Success");

@@ -7,6 +7,7 @@ export interface TcardType {
   title: string;
   content: string;
   id: string | number;
+  saved: boolean;
 }
 
 export interface Article {
@@ -39,4 +40,8 @@ export interface CategoryData {
 export interface articles {
   category: string;
   articles: MedicalArticle[];
+}
+export interface LandingHeaderProps {
+  aboutSectionRef: React.RefObject<HTMLDivElement>;
+  featureSectionRef: React.RefObject<HTMLDivElement>;
 }
