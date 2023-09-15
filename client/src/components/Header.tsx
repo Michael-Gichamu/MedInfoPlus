@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import CustomDropdown from "./CustomDropdown";
 import { datafromServer } from "../actions/med.actions";
+import { Link } from "react-router-dom";
 
 const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -50,6 +51,9 @@ const Header: React.FC = () => {
         </div>
         <div className=" p-5 border-none focus:outline-none">
           <CustomDropdown title="Wellness" options={wellOptions} />
+        </div>
+        <div className="border-none focus:outline-none cursor-pointer">
+          <Link to="/dashboard">Home</Link>
         </div>
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
           <div className="">Health Cost Estimator</div>

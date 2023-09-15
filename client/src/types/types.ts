@@ -7,6 +7,7 @@ export interface TcardType {
   title: string;
   content: string;
   id: string | number;
+  saved: boolean;
 }
 
 export interface Article {

@@ -31,7 +31,9 @@ export const LandingHeader: React.FC<LandingHeaderProps> = ({
           <Link onClick={scrollToAbout} to="" className="">
             About
           </Link>
-          <div className="">Login</div>
+          <Link to="/auth/signup">
+            <div className="">Signup</div>
+          </Link>
           <Link to="" onClick={scrollToAbout} className="">
             Newsletter
           </Link>

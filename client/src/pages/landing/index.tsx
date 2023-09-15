@@ -1,8 +1,8 @@
 import ImageSlider from "./components/ImageSlider";
 import { LandingHeader } from "./components/LandingHeader";
-import image1 from "../../../public/slider1.jpg";
-import image2 from "../../../public/slider2.jpg";
-import image3 from "../../../public/slider3.jpg";
+import image1 from "/slider1.jpg";
+import image2 from "/slider2.jpg";
+import image3 from "/slider3.jpg";
 import { useState, useRef } from "react";
 import { Testimonials } from "./components/Testimonials";
 export const LandingPage = (): JSX.Element => {
