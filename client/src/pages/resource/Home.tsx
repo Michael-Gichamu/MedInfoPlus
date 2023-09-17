@@ -33,6 +33,13 @@ export const HomeComponentPage: React.FC = () => {
       id: response[1].id,
       image: response[1].image,
     });
+    articleArray.push({
+      name: response[2].category,
+      summary: response[2].summary,
+      title: response[2].title,
+      id: response[2].id,
+      image: response[2].image,
+    });
     setArticles(articleArray);
 
     topArticleArray.push(response[0]);
