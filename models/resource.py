@@ -12,6 +12,7 @@ class Resource(BaseModel, Base):
     __tablename__ = 'resource'
     name = Column(String(60), nullable=False)
     medical_type = Column(String(60), nullable=False)
+    image = Column(String(60), nullable=False)
     medical_articles = relationship('MedicalArticle', backref='resource', cascade='all, delete-orphan')
 
     def __init__(self, *args, **kwargs):
