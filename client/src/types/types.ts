@@ -17,6 +17,7 @@ export interface Article {
   id: number;
   image: string;
 }
+
 export interface LoadingProps {
   type: string | undefined;
   color: string;
@@ -44,4 +45,15 @@ export interface articles {
 export interface LandingHeaderProps {
   aboutSectionRef: React.RefObject<HTMLDivElement>;
   featureSectionRef: React.RefObject<HTMLDivElement>;
+}
+
+export interface PopoverProps {
+  trigger: React.ReactNode;
+}
+
+export interface NewUserCredentials {
+  new_name: string;
+  email: string;
+  password: string;
+  new_password: string;
 }

@@ -8,7 +8,7 @@ import { SignUp } from "../authentication/Signup";
 import { SavedArticleComponent } from "../pages/resource/Dash";
 import { Login } from "../authentication/Login";
 import { LandingPage } from "../pages/landing";
-import { ResourceCenterComponent } from "../pages/resource/ResourceCenter";
+import ResourceCenterComponent from "../pages/resource/ResourceCenter";
 import { HomeComponentPage } from "../pages/resource/Home";
 import { ArticlesComponent } from "../pages/articles/Articles";
 const routes = createRoutesFromElements([
