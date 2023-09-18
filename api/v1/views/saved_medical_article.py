@@ -64,16 +64,22 @@ def get_post_saved_medicalarticle(user_Id, medical_article_id):
     return jsonify({'message': 'Medical article saved successfully'}), 201
 
 
-@app_views.route('/saved_medicalarticles/<saved_medical_article_id>', methods=['DELETE'])
-def get_delete_saved_medicalarticle(saved_medical_article_id):
+@app_views.route('/saved_medicalarticles/<user_Id>/<saved_medicalarticle_id>', methods=['DELETE'])
+def get_delete_saved_medicalarticle(user_Id, saved_medicalarticle_id):
     """Deletes a saved medical_article id"""
-    saved_medicalarticle = storage.get(SavedMedicalArticle, id=saved_medical_article_id)
+    exists = False
+    saved_medicalarticles = storage.all(SavedMedicalArticle)
 
-    if not saved_medicalarticle:
-        abort(404)
+    for saved_medicalarticle in saved_medicalarticles.values():
+        if (saved_medicalarticle.user_Id == user_Id and
+            saved_medicalarticle.saved_medicalarticle_id == saved_medicalarticle_id):
+
+            storage.delete(saved_medicalarticle)
+            storage.save()
+            storage.reload()
+            exists = True
     
-    storage.delete(saved_medicalarticle)
-    storage.save()
-    storage.reload()
-
-    return make_response(jsonify({'message': 'Successfully deleted a saved medical article'}), 200)
+    if exists:
+        return make_response(jsonify({'message': 'Successfully deleted a saved medical article'}), 200)
+    else:
+        return make_response(jsonify({'message': 'Saved medical article doesnt exists!'}), 401)
