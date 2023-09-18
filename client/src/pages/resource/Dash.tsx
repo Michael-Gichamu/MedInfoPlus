@@ -3,6 +3,7 @@ import { fetchSaved } from "../../actions/savedarticle.actions";
 import { LoadingComponent } from "../../components/Loading";
 import { useNavigate } from "react-router-dom";
 import { TitleCardComponent } from "../../components/Tcard";
+import Popover from "../../components/PopOver";
 
 export const SavedArticleComponent = () => {
   const [articles, setArticles] = useState([]);
@@ -55,9 +56,23 @@ export const SavedArticleComponent = () => {
   return (
     <>
       <div className=" p-5 text-xl"> {greetingMessage + " " + userName}</div>
+      <div className=" w-full flex justify-end">
+        <Popover
+          trigger={
+            <button className="bg-white border mr-4 border-blue-400 hover:bg-blue-600 text-white py-2 px-4 rounded">
+              <img
+                src="/settings.svg"
+                alt="settings-svg"
+                className="w-[40px] h-[25px]"
+              />
+            </button>
+          }
+        />
+      </div>
       <div className="w-full text-center text-lg font-medium">
         Your saved articles
       </div>
+
       {isLoading ? (
         <div className="mx-auto my-auto flex justify-center items-center">
           <LoadingComponent color="#0c0c0c" type="" />

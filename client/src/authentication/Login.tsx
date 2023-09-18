@@ -59,7 +59,7 @@ export const Login: React.FC = () => {
     if (userdata) {
       toast("You are already logged in");
       setTimeout(() => {
-        navigate(-1);
+        // navigate(-1);
       }, 5000);
     } else {
     }
