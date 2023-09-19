@@ -25,6 +25,8 @@ def get_saved_medicalarticles(user_Id):
     user = storage.get(User, id=user_Id)
     if user_Id is None:
         abort(404, 'Not found')
+    if user is None:
+        return jsonify({'message': 'user does not exist'})
     user_saved_medicalarticles = get_user_saved_medicalarticles(user_Id)
 
     medicalarticles_list = []
@@ -43,10 +45,12 @@ def get_post_saved_medicalarticle(user_Id, medical_article_id):
     user = storage.get(User, id=user_Id)
     if user_Id is None:
         abort(404, 'Not found')
+    if user is None:
+        return jsonify({'message': 'user does not exist'})
 
     medicalarticle = storage.get(MedicalArticle, id=medical_article_id)
     if medicalarticle is None:
-        abort(404, 'Not found')
+        return jsonify({'message': 'MedicalArticle does not exist'})
 
     user_saved_medicalarticles = get_user_saved_medicalarticles(user_Id)
 
@@ -67,6 +71,11 @@ def get_post_saved_medicalarticle(user_Id, medical_article_id):
 @app_views.route('/saved_medicalarticles/<user_Id>/<saved_medicalarticle_id>', methods=['DELETE'])
 def get_delete_saved_medicalarticle(user_Id, saved_medicalarticle_id):
     """Deletes a saved medical_article id"""
+    user = storage.get(User, id=user_Id)
+    if user_Id is None:
+        abort(404, 'Not found')
+    if user is None:
+        return jsonify({'message': 'user does not exist'})
     exists = False
     saved_medicalarticles = storage.all(SavedMedicalArticle)
 
