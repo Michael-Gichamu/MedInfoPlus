@@ -10,3 +10,5 @@ werkzeug
 Flask
 gunicorn
 Flask-CORS
+Flask-Mail
+schedule
