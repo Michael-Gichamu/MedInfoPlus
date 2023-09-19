@@ -24,7 +24,7 @@ app.config['JSONIFY_PRETTYPRINT_REGULAR'] = True
 app.config['MAIL_SERVER'] = 'smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USERNAME'] = 'medinfoplus001@gmail.com'
-app.config['MAIL_PASSWORD'] = 'shqhrlrmlpbagmvy'
+app.config['MAIL_PASSWORD'] = os.environ.get('MedInfoPlus_GMAIL_PWD')
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 mail = Mail(app)
@@ -92,4 +92,3 @@ if __name__ == "__main__":
     background_process.daemon = True
     background_process.start()
     app.run(host=default_host, port=default_port, threaded=True)
-
