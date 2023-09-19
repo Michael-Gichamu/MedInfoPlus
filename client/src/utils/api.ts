@@ -1,1 +1,1 @@
-export const apiDomain: string = "http://web-01.mikedev.tech/api/v1/";
+export const apiDomain: string = "https://web-01.mikedev.tech/api/v1/";

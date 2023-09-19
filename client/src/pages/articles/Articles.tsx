@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import { datafromServer } from "../../actions/med.actions";
 import { DiabetesComponentCard } from "../../components/Dcard";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 export const ArticlesComponent: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
   const [error, setError] = useState<any>();
@@ -10,6 +10,10 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
   const [SecondDataimage, setSecondDataimage] = useState<any>();
   const [FirstTitle, setFirstTitle] = useState<any>();
   const [SecondTitle, setSecondTitle] = useState<any>();
+  const [content, setContent] = useState([]);
+  const [title, setTitle] = useState("");
+
+  const { id } = useParams();
 
   const getData = async () => {
     try {
@@ -22,24 +26,33 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
       setError(error);
     }
   };
+  const getAlldata = async () => {
+    try {
+      const resp = await datafromServer(`medicalarticles/${id}`);
+      console.log(resp.content);
+      setTitle(resp.category);
+      setContent(resp.content);
+    } catch (error) {
+      // setError(error);
+    }
+  };
   useEffect(() => {
-    const user = localStorage.getItem("user_data");
+    const user = localStorage.getItem("user");
     if (!user) {
       navigate("/auth/login");
     }
 
     getData();
+    getAlldata();
   }, []);
   const text = "Diabetes";
   if (!error) {
     return (
       <>
         <div className=" flex flex-col bg-gray-300 h-[100%] overflow-y-scroll">
-          <div className=" text-black text-lg ml-5 font-semibold mt-2">
-            {text} article
-          </div>
+          <div className=" text-black text-lg ml-5 font-semibold mt-2"></div>
           <div className="ml-5 mt-2 text-black text-xl font-medium">
-            {text}, Signs & Symptoms, <br /> Treatment & care
+            {text} <br /> {title}
           </div>
           <div className="flex gap-4 ml-5 mt-3">
             <DiabetesComponentCard width="10rem" text="Things to know" />
@@ -55,24 +68,49 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
                 Things to Know
               </p>
               <div className=" flex-wrap flex ">
-                <section>
+                <div
+                  className=""
+                  dangerouslySetInnerHTML={{ __html: content }}
+                ></div>
+                {/* <section>
                   <h2>Fact : Chronic Condition</h2>
                   <p>
                     Diabetes is a chronic health condition affecting blood sugar
                     levels.
                   </p>
-                </section>
+                </section> */}
               </div>
             </div>
+            {/* {content.map((section: any, index: any) => (
+              <div key={index} className="text flex flex-col w-[70%]">
+                <p className="text font-medium text-lg mt-[4rem]">
+                  {section.title}
+                </p>
+                <div className="flex-wrap flex">
+                  {section.content.map((subsection: any, subIndex: any) => (
+                    <section key={subIndex}>
+                      <h2>{subsection.title}</h2>
+                      <p>{subsection.content}</p>
+                    </section>
+                  ))}
+                </div>
+              </div>
+            ))} */}
             <div className="image w-[30%]  mt-[5rem] ml-10">
               <div className=" mb-4 underline">Recomended Articles </div>
               <div className="">{FirstTitle}</div>
               <div className="   flex h-[10rem] w-[10rem] text-center justify-center items-center">
                 <img src={`/${FirstDataimage}`} alt={FirstDataimage} />
               </div>
+              <div className="image   mt-[5rem]  w-full ">
+                <div className="mb-2">{SecondTitle}</div>
+                <div className="  flex h-[10rem] w-[10rem] text-center justify-center items-center">
+                  <img src={`/${SecondDataimage}`} alt={SecondDataimage} />
+                </div>
+              </div>
             </div>
           </div>
-          <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
+          {/* <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
             <div className="text flex flex-col w-[70%]">
               <p className="text font-medium text-lg  mt-[4rem]">
                 What is {text}
@@ -100,14 +138,9 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
                 </section>
               </div>
             </div>
-            <div className="image w-[30%]  mt-[5rem] ml-10 ">
-              <div className="mb-2">{SecondTitle}</div>
-              <div className=" bg-green-400  flex h-[10rem] w-[10rem] text-center justify-center items-center">
-                <img src={`/${SecondDataimage}`} alt={SecondDataimage} />
-              </div>
-            </div>
-          </div>
-          <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
+           
+          </div> */}
+          {/* <div className="whatislungcancer flex  justify-between ml-5 pb-4 ">
             <div className="text flex flex-col w-[70%]">
               <p className="text font-medium text-lg  mt-[4rem]">
                 What are the causes of {text}
@@ -154,11 +187,9 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
               </div>
             </div>
             <div className="image w-[30%]  mt-[5rem] ml-10 ">
-              {/* <div className=" bg-green-400  flex h-[10rem] w-[10rem] text-center justify-center items-center">
-                Article Image
-              </div> */}
+              
             </div>
-          </div>
+          </div> */}
         </div>
       </>
     );
