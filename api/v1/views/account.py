@@ -9,6 +9,9 @@ from functools import wraps
 from models.user import User
 from models.subscriber import Subscriber
 from models import storage
+import schedule
+import time
+from flask_mail import Message
 import jwt
 import os
 
@@ -99,7 +102,6 @@ def login():
 
 
 @app_views.route('/account/update', methods=['PUT'])
-@token_required
 def account_update(user):
     data = request.get_json()
     new_name = data.get('new_name')
@@ -149,3 +151,19 @@ def access_users(user):
     for user in users.values():
         users_list.append(user.to_dict())
     return jsonify(users_list)
+
+@app_views.route('/account/subscribe', methods=['POST'])
+def subscribe():
+    data = request.get_json()
+    email = data.get('email')
+
+    if storage.get(Subscriber, email=email):
+        return jsonify({'message': 'Subscriber Already exists'})
+    if email:
+        subscriber = Subscriber(**data)
+        storage.new(subscriber)
+        storage.save()
+        storage.reload()
+        return jsonify({'message': 'Subscriber created successfully'}), 201
+    else:
+        return jsonify({'message': 'Missing required fields'}), 400
