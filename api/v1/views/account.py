@@ -3,6 +3,7 @@
 Flask route that serves sign up.
 """
 from api.v1.views import app_views
+from api.v1.app import send_newsletter
 from flask import current_app, request, jsonify
 from datetime import datetime, timedelta
 from functools import wraps
@@ -167,3 +168,11 @@ def subscribe():
         return jsonify({'message': 'Subscriber created successfully'}), 201
     else:
         return jsonify({'message': 'Missing required fields'}), 400
+
+
+@app_views.route('/send_newsletter', methods=['POST'])
+def send_newsletter_route():
+    """Endpoint to send newsletters."""
+    send_newsletter()
+    return jsonify({"message": "Newsletter sent successfully"}), 200
+
