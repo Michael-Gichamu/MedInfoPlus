@@ -43,7 +43,8 @@ class TestSavedMedicalArticle(unittest.TestCase):
 
         resource_data = {
             'name': 'Sample Resource',
-            'medical_type': 'sample type'
+            'medical_type': 'sample type',
+            'image': 'Sample_Resource.jpg'
         }
         resource_sample = Resource(**resource_data)
         self.tester.db.new(resource_sample)
@@ -55,6 +56,7 @@ class TestSavedMedicalArticle(unittest.TestCase):
             'category': 'SampleCategory',
             'summary': 'Sample has a summary',
             'image': 'samplearticle.jpg',
+            'content': '<h1>This is a sample content of a medicalarticle</h1>',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article = MedicalArticle(**article_data)
