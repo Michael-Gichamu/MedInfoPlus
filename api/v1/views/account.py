@@ -3,12 +3,15 @@
 Flask route that serves sign up.
 """
 from api.v1.views import app_views
-from api.v1.app import send_newsletter
 from flask import current_app, request, jsonify
 from datetime import datetime, timedelta
 from functools import wraps
 from models.user import User
 from models.subscriber import Subscriber
+from models.medical_article import MedicalArticle
+from models.resource import Resource
+from flask_mail import Mail, Message
+from flask import current_app
 from models import storage
 import schedule
 import time
@@ -171,7 +174,8 @@ def subscribe():
 
 def send_newsletter():
     """Fetch articles published today from the database and send newsletters."""
-    with app.app_context():
+    with current_app.app_context():
+        mail = Mail(current_app)
         medicalarticles_list = []
         medicalarticles = storage.all(MedicalArticle)
 
