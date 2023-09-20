@@ -31,6 +31,7 @@ def get_medicalarticle(medicalarticle_id):
     if medicalarticle is None:
         abort(404, 'Not found')
     try:
+        html_file = medicalarticle.content
         medicalarticle.content = medicalarticle.content.strip('"')
         medicalarticle_page = f'/home/ubuntu/MedInfoPlus/MedicalArticle_pages/{medicalarticle.content}'
         with open(medicalarticle_page, 'r') as file:
@@ -40,9 +41,11 @@ def get_medicalarticle(medicalarticle_id):
         abort(404, 'HTML file not found')
 
     medicalarticle.query_count += 1
+    medicalarticle_data = medicalarticle.to_dict()
+    medicalarticle.content = html_file
     storage.save()
 
-    return jsonify(medicalarticle.to_dict())
+    return jsonify(medicalarticle_data)
 
 
 @app_views.route('/medicalarticles/toparticles', methods=['GET'])
