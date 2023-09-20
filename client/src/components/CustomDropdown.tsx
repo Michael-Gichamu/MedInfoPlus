@@ -14,6 +14,7 @@ const CustomDropdown = ({
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
   const navigate = useNavigate();
   const handleOptionClick = (option: string) => {
     setSelectedOption(option);
@@ -41,7 +42,6 @@ const CustomDropdown = ({
           type="button"
           className="inline-flex justify-between w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-200"
           onClick={toggleDropdown}
-          onMouseLeave={toggleDropdown}
         >
           {title}
           <svg
@@ -74,7 +74,7 @@ const CustomDropdown = ({
               <button
                 key={option}
                 type="button"
-                className={`block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-200 ${
+                className={`block w-full  relative px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 focus:outline-none focus:ring focus:ring-blue-200 ${
                   option === selectedOption ? "bg-blue-100" : ""
                 }`}
                 role="menuitem"

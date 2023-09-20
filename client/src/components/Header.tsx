@@ -40,6 +40,8 @@ const Header: React.FC = () => {
     getresourceType();
     if (user) {
       setLogedin(true);
+    } else {
+      setLogedin(false);
     }
   }, []);
   return (
@@ -52,9 +54,7 @@ const Header: React.FC = () => {
         <div className=" p-5 border-none focus:outline-none">
           <CustomDropdown title="Wellness" options={wellOptions} />
         </div>
-        <div className="border-none focus:outline-none cursor-pointer">
-          <Link to="/dashboard">Home</Link>
-        </div>
+
         <div className=" p-5 border-none focus:outline-none cursor-pointer">
           <div className="">Health Cost Estimator</div>
         </div>
@@ -72,9 +72,16 @@ const Header: React.FC = () => {
             </div>
           </div>
         ) : (
-          <div className=" p-5 border-none focus:outline-none cursor-pointer">
-            <div onClick={logOut} className="">
-              Log out
+          <div className="flex">
+            <div className=" p-5 border-none focus:outline-none cursor-pointer">
+              <div onClick={logOut} className="">
+                Log out
+              </div>
+            </div>
+            <div className=" flex items-center border-none focus:outline-none cursor-pointer">
+              <Link to="/dashboard">
+                <img src="/home.svg" alt="Home" className="w-[30px] h-[30px]" />
+              </Link>
             </div>
           </div>
         )}

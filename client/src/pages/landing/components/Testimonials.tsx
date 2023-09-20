@@ -1,17 +1,15 @@
-import React from "react";
-
-export const Testimonials: React.FC = (): JSX.Element => {
+import { TestimonialsProps } from "../../../types/types";
+export const Testimonials = ({
+  content,
+  name,
+  designition,
+}: TestimonialsProps): JSX.Element => {
   return (
     <div>
-      <div className=" border-none bg-gray-900 text-white rounded-md w-[22rem]  p-5 h-[15rem]">
-        <p className=" text-xl">Amos Wachira</p>
-        <p className="  text-gray-400">Developer</p>
-        <div className="flex flex-wrap">
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit
-          fugit obcaecati libero, consequuntur doloremque totam expedita,
-          dolores error cupiditate animi voluptate ipsam architecto facilis.
-          Sit, aliquid facilis! Et, facilis eius!
-        </div>
+      <div className="  border-none bg-gray-900 text-white rounded-md w-[22rem]  p-5 min-h-[15rem]">
+        <p className=" text-xl">{name}</p>
+        <p className="  text-gray-400">{designition}</p>
+        <div className="flex flex-wrap  h-max">{content}</div>
       </div>
     </div>
   );
