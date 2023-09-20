@@ -211,6 +211,7 @@ def send_newsletter():
                     msg.attach("image.jpg", "image/jpeg", img.read())
             mail.send(msg)
 
+
 @app_views.route('/send_newsletter', methods=['POST'])
 def send_newsletter_route():
     """Endpoint to send newsletters."""
