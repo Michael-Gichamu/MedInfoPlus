@@ -172,6 +172,7 @@ def subscribe():
     else:
         return jsonify({'message': 'Missing required fields'}), 400
 
+
 def send_newsletter():
     """Fetch articles published today from the database and send newsletters."""
     with current_app.app_context():
@@ -192,20 +193,6 @@ def send_newsletter():
         medical_articles = top_5_articles_list
         if medical_articles:
             newsletter_content = "<h1>Today's Top Medical Stories<h1>"
-            for article in medical_articles:
-                """
-                Send Image Login to be implemented.
-                resource_Id = article['resource_Id']
-                resource = storage.get(Resource, id=resource_Id)
-                resource_path = resource.image.split(".")[0]
-                image_dir = f'/root/Alx-Projects/Foundations_project/MedInfoPlus/MedicalArticle_images/{resource_path}'
-                with open(f"{image_dir}/{article['image']}", 'rb') as image_file:
-                    image_data = base64.b64encode(image_file.read()).decode('utf-8')
-                """
-
-                newsletter_content += f"<h2>{article['title']}<h2>"
-#               newsletter_content += f'<img src="data:image/jpeg;base64,{image_data}" width="100%">'
-                newsletter_content += f"<p>{article['summary']}<p>"
 
         subscribers = storage.all(Subscriber)
         for subscriber in subscribers.values():
@@ -213,6 +200,15 @@ def send_newsletter():
             msg = Message("Today's Top Stories", sender='medinfoplus001@gmail.com')
             msg.add_recipient(subscriber['email'])
             msg.html = newsletter_content
+            for article in medical_articles:
+                newsletter_content += f"<h2>{article['title']}<h2>"
+                newsletter_content += f"<p>{article['summary']}<p>"
+                resource_Id = article['resource_Id']
+                resource = storage.get(Resource, id=resource_Id)
+                resource_path = resource.image.split(".")[0]
+                image_dir = f'/root/Alx-Projects/Foundations_project/MedInfoPlus/MedicalArticle_images/{resource_path}'
+                with current_app.open_resource(f"{image_dir}/{article['image']}") as img:
+                    msg.attach("image.jpg", "image/jpeg", img.read())
             mail.send(msg)
 
 @app_views.route('/send_newsletter', methods=['POST'])
