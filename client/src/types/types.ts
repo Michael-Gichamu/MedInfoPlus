@@ -57,3 +57,8 @@ export interface NewUserCredentials {
   password: string;
   new_password: string;
 }
+export interface TestimonialsProps {
+  content: string;
+  name: string;
+  designition: string;
+}

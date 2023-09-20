@@ -32,6 +32,7 @@ const ResourceCenterComponent: React.FC = () => {
 
     setCategoryNames(categoryNames);
     setArticles(data);
+
     setLoading(false);
   };
 
@@ -119,12 +120,12 @@ const ResourceCenterComponent: React.FC = () => {
                 (overview: MedicalArticle, index: number) => (
                   <div
                     key={index}
-                    onClick={() => navigate(`/article/${overview.id}`)}
                     className="last flex flex-col gap-4 mb-4 justify-center items-center mt-[3rem]"
                   >
                     <DiabetesTitleComponentCard
                       title={overview.title}
                       content={overview.summary}
+                      id={overview.id}
                     />
                   </div>
                 )

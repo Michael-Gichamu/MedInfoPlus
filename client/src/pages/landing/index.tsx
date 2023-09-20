@@ -1,15 +1,32 @@
 import ImageSlider from "./components/ImageSlider";
 import { LandingHeader } from "./components/LandingHeader";
+import { useNavigate } from "react-router-dom";
 import image1 from "/slider1.jpg";
 import image2 from "/slider2.jpg";
 import image3 from "/slider3.jpg";
 import { useState, useRef } from "react";
 import { Testimonials } from "./components/Testimonials";
+import { ToastContainer, toast } from "react-toastify";
+import { sendNotification } from "../../actions/subscribe.actions";
 export const LandingPage = (): JSX.Element => {
   const [images] = useState<any>([image1, image2, image3]);
+  const [email, setemail] = useState<string>("");
   const aboutSectionRef = useRef(null);
   const featureRef = useRef(null);
+  const navigate = useNavigate();
+  const handleSignUp = () => {
+    navigate("/auth/signup");
+  };
+  const handleSubscribe = async () => {
+    const subscription = await sendNotification(email);
+    toast(subscription.message);
 
+    return subscription;
+  };
+  const handleEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault();
+    setemail(e.target.value);
+  };
   return (
     <>
       <div className=" h-[100vh] w-full  flex flex-col overflow-y-scroll bg-black ">
@@ -18,6 +35,9 @@ export const LandingPage = (): JSX.Element => {
             aboutSectionRef={aboutSectionRef}
             featureSectionRef={featureRef}
           />
+          <div className="">
+            <ToastContainer />
+          </div>
         </div>
         <div className="mt-[0.4px]">
           <ImageSlider images={images} />
@@ -77,7 +97,10 @@ export const LandingPage = (): JSX.Element => {
             newsletter now!"
           </p>
           <div className="w-full flex justify-center">
-            <button className=" bg-blue-400   auth-btn border-none text-lg  flex items-center justify-center   text-white h-[2.55rem] w-[10rem] mb-[1.5rem] rounded">
+            <button
+              onClick={handleSignUp}
+              className=" bg-blue-400   auth-btn border-none text-lg  flex items-center justify-center   text-white h-[2.55rem] w-[10rem] mb-[1.5rem] rounded"
+            >
               Signup
               <div className="arrow-wrapper">
                 <div className="arrow"></div>
@@ -88,11 +111,15 @@ export const LandingPage = (): JSX.Element => {
             <input
               type="email"
               name=""
+              onChange={handleEmail}
               id=""
               placeholder="you@example.com"
               className="w-[15rem] text-center text-black h-[2rem] border-none rounded-sm focus:border-b-orange-700 focus:outline-none"
             />
-            <button className="hover:border hover:border-gray-400 p-1 rounded-md  ">
+            <button
+              onClick={handleSubscribe}
+              className="hover:border hover:border-gray-400 p-1 rounded-md  "
+            >
               Subscribe
             </button>
           </div>
@@ -101,10 +128,21 @@ export const LandingPage = (): JSX.Element => {
           <div className=" text-white flex flex-col justify-center w-full bg-gray-800">
             <p className=" text-xl font-medium text-center ">Testimonials</p>
             <div className="flex justify-around w-full flex-wrap gap-2 py-5">
-              <Testimonials />
-              <Testimonials />
-              <Testimonials />
-              <Testimonials />
+              <Testimonials
+                name="Dr. Sarah Johnson, MD"
+                designition="Family Physician"
+                content="MedInfoPlus has been an invaluable resource for me as a healthcare professional. The articles are not only well-researched and up-to-date but also presented in a way that's easily understandable for patients. It's become my go-to reference when explaining medical conditions and procedures to my patients. Thank you for providing such a valuable tool in the world of healthcare."
+              />
+              <Testimonials
+                name="Emily Martinez"
+                designition="Health-conscious Individual"
+                content="As someone who values their health, I'm always looking for reliable sources of medical information. MedInfoPlus has exceeded my expectations. The content is thorough, and I appreciate the commitment to accuracy. I've learned so much and feel more confident in managing my health because of this website. Keep up the fantastic work!"
+              />
+              <Testimonials
+                name="Mark Davis"
+                designition="MedInfoPlus User"
+                content="I stumbled upon MedInfoPlus while researching my recent diagnosis. The articles not only provided me with the information I needed but also gave me a sense of empowerment in understanding my condition. The personal stories and expert insights shared here were incredibly comforting during a challenging time. I can't thank you enough for creating this resource"
+              />
             </div>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 // import { useParams } from "react-router-dom";
 import { datafromServer } from "../../actions/med.actions";
-import { DiabetesComponentCard } from "../../components/Dcard";
 import { useNavigate, useParams } from "react-router-dom";
 export const ArticlesComponent: React.FC = (): JSX.Element => {
   const navigate = useNavigate();
@@ -12,6 +11,9 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
   const [SecondTitle, setSecondTitle] = useState<any>();
   const [content, setContent] = useState([]);
   const [title, setTitle] = useState("");
+  const [newLinkFirst, setnewLinkFirst] = useState("");
+  const [newLinkSecond, setnewLinkSecond] = useState("");
+  const [clicked, setclicked] = useState(false);
 
   const { id } = useParams();
 
@@ -22,6 +24,8 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
       setSecondDataimage(response[1].image);
       setFirstTitle(response[0].title);
       setSecondTitle(response[1].title);
+      setnewLinkFirst(response[0].id);
+      setnewLinkSecond(response[1].id);
     } catch (error) {
       setError(error);
     }
@@ -35,6 +39,10 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
       // setError(error);
     }
   };
+  const handleClicked = (link: string) => {
+    navigate(`/article/${link}`);
+    setclicked(true);
+  };
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (!user) {
@@ -43,7 +51,7 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
 
     getData();
     getAlldata();
-  }, []);
+  }, [clicked]);
   const text = "";
   if (!error) {
     return (
@@ -53,17 +61,17 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
           <div className="ml-5 mt-2 text-black text-xl font-medium">
             {text} <br /> {title}
           </div>
-          <div className="flex gap-4 ml-5 mt-3">
+          {/* <div className="flex gap-4 ml-5 mt-3">
             <DiabetesComponentCard width="10rem" text="Things to know" />
             <DiabetesComponentCard width="5rem" text="Causes" />
           </div>
           <div className="flex gap-4 ml-5 mt-3">
             <DiabetesComponentCard width="15rem" text="Signs & symptoms" />
             <DiabetesComponentCard width="15rem" text="Diagnosis & Treatment" />
-          </div>
+          </div> */}
           <div className="things2know flex  justify-between ml-5 ">
             <div className="text flex flex-col w-[70%]">
-              <p className="text font-medium text-lg  mt-[4rem] mb-2">
+              <p className="text font-medium text-xl  mt-[4rem] mb-2">
                 Things to Know
               </p>
               <div className=" flex-wrap flex ">
@@ -76,12 +84,22 @@ export const ArticlesComponent: React.FC = (): JSX.Element => {
 
             <div className="image w-[30%]  mt-[5rem] ml-10">
               <div className=" mb-4 underline">Recomended Articles </div>
-              <div className="">{FirstTitle}</div>
+              <div
+                className=" cursor-pointer"
+                onClick={() => handleClicked(newLinkFirst)}
+              >
+                {FirstTitle}
+              </div>
               <div className="   flex h-[10rem] w-[10rem] text-center justify-center items-center">
                 <img src={`/${FirstDataimage}`} alt={FirstDataimage} />
               </div>
               <div className="image   mt-[5rem]  w-full ">
-                <div className="mb-2">{SecondTitle}</div>
+                <div
+                  className="mb-2 cursor-pointer"
+                  onClick={() => handleClicked(newLinkSecond)}
+                >
+                  {SecondTitle}
+                </div>
                 <div className="  flex h-[10rem] w-[10rem] text-center justify-center items-center">
                   <img src={`/${SecondDataimage}`} alt={SecondDataimage} />
                 </div>
