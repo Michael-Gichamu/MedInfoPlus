@@ -13,12 +13,13 @@ const ResourceCenterComponent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [categoryNames, setCategoryNames] = useState<string[]>([]);
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [articles, setArticles] = useState<CategoryData[]>([]); // Updated type
+  const [articles, setArticles] = useState<CategoryData[]>([]);
+  const [image, setImage] = useState<any>();
 
   const getName = async () => {
     const resp = await datafromServer(`resources/${slug}`);
     setTitle(resp.name);
-    console.log(resp);
+    setImage(resp.image);
   };
 
   const fetchData = async () => {
@@ -58,7 +59,11 @@ const ResourceCenterComponent: React.FC = () => {
   return (
     <div className="flex flex-col min-h-[77vh] bg-gray-200">
       <div className="img flex justify-center mt-4">
-        <img src="/diabetes-img.webp" className="rounded-full" alt="" />
+        <img
+          src={`/${image}`}
+          className="rounded-full w-[200px] h-[200px]"
+          alt=""
+        />
       </div>
       <div className="flex justify-center font-bold pb-3 pt-4 text-black text-3xl">
         {title} Resource Center

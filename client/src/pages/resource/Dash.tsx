@@ -30,6 +30,7 @@ export const SavedArticleComponent = () => {
     try {
       const resp = await fetchSaved();
       setLoading(false);
+
       setArticles(resp);
 
       if (resp) {
