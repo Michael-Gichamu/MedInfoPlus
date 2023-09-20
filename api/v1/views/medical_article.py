@@ -30,9 +30,18 @@ def get_medicalarticle(medicalarticle_id):
     medicalarticle = storage.get(MedicalArticle, id=medicalarticle_id)
     if medicalarticle is None:
         abort(404, 'Not found')
-    
+    try:
+        medicalarticle.content = medicalarticle.content.strip('"')
+        medicalarticle_page = f'/home/ubuntu/MedInfoPlus/MedicalArticle_pages/{medicalarticle.content}'
+        with open(medicalarticle_page, 'r') as file:
+            html_content = file.read()
+            medicalarticle.content = html_content
+    except FileNotFoundError:
+        abort(404, 'HTML file not found')
+
     medicalarticle.query_count += 1
     storage.save()
+
     return jsonify(medicalarticle.to_dict())
 
 
