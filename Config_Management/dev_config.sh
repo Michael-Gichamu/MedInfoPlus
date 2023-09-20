@@ -5,6 +5,7 @@ MedInfoPlus_MYSQL_PWD="MedInfoPlus_dev_pwd"
 MedInfoPlus_MYSQL_HOST="localhost"
 MedInfoPlus_MYSQL_DB="MedInfoPlus_dev_db"
 MedInfoPlus_ENV="dev"
+MedInfoPlus_GMAIL_PWD="shqhrlrmlpbagmvy"
 
 # Clear any existing MedInfoPlus environment variables section
 sed -i '/# MedInfoPlus environment variables/,/^EOT/d' ~/.bashrc
@@ -17,6 +18,7 @@ export MedInfoPlus_MYSQL_PWD="$MedInfoPlus_MYSQL_PWD"
 export MedInfoPlus_MYSQL_HOST="$MedInfoPlus_MYSQL_HOST"
 export MedInfoPlus_MYSQL_DB="$MedInfoPlus_MYSQL_DB"
 export MedInfoPlus_ENV="$MedInfoPlus_ENV"
+export MedInfoPlus_GMAIL_PWD="$MedInfoPlus_GMAIL_PWD"
 EOT
 
 source ~/.bashrc
