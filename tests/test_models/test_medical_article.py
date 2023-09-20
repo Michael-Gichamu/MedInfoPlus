@@ -49,6 +49,11 @@ class TestMedicalArticle(unittest.TestCase):
         self.assertTrue(hasattr(self.medicalarticle, "image"))
         self.assertEqual(self.medicalarticle.image, None)
 
+    def test_content(self):
+        """Test that MedicalArticle has attribute content and its none"""
+        self.assertTrue(hasattr(self.medicalarticle, "content"))
+        self.assertEqual(self.medicalarticle.content, None)
+
     def test_resource_Id_attr(self):
         """Test that MedicalArticle has attribute resource_Id and its none"""
         self.assertTrue(hasattr(self.medicalarticle, "resource_Id"))
@@ -61,7 +66,8 @@ class TestMedicalArticle(unittest.TestCase):
         
         resource_data = {
             'name': 'Sample Resource',
-            'medical_type': 'sample type'
+            'medical_type': 'sample type',
+            'image': 'Sample_Resource.jpg'
         }
         resource = Resource(**resource_data)
         self.tester.db.new(resource)
@@ -73,6 +79,7 @@ class TestMedicalArticle(unittest.TestCase):
             'category': 'SampleCategory',
             'summary': 'Sample has a summary',
             'image': 'samplearticle.jpg',
+            'content': '<h1>This is a sample content of a medicalarticle</h1>',
             'resource_Id': '{}'.format(resource.id)
         }
         article = MedicalArticle(**article_data)
@@ -86,6 +93,7 @@ class TestMedicalArticle(unittest.TestCase):
         self.assertEqual(fetched_article.query_count, 0)
         self.assertEqual(fetched_article.summary, 'Sample has a summary')
         self.assertEqual(fetched_article.image, 'samplearticle.jpg')
+        self.assertEqual(fetched_article.content, '<h1>This is a sample content of a medicalarticle</h1>')
         self.assertEqual(fetched_article.resource_Id, resource.id)
 
         self.tester.teardown()

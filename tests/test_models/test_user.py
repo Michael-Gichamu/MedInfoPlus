@@ -58,7 +58,8 @@ class TestUser(unittest.TestCase):
 
         resource_data = {
             'name': 'Sample Resource',
-            'medical_type': 'sample type'
+            'medical_type': 'sample type',
+            'image': 'Sample_Resource.jpg'
         }
         resource_sample = Resource(**resource_data)
         self.tester.db.new(resource_sample)
@@ -70,6 +71,7 @@ class TestUser(unittest.TestCase):
             'category': 'SampleCategory',
             'summary': 'Sample has a summary',
             'image': 'samplearticle.jpg',
+            'content': '<h1>This is a sample content of a medicalarticle</h1>',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article = MedicalArticle(**article_data)
@@ -80,6 +82,7 @@ class TestUser(unittest.TestCase):
             'category': 'SampleCategory1',
             'summary': 'Sample1 has a summary',
             'image': 'samplearticle1.jpg',
+            'content': '<h1>This is a sample content of a medicalarticle1</h1>',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article1 = MedicalArticle(**article_data1)

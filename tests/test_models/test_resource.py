@@ -27,6 +27,16 @@ class TestResource(unittest.TestCase):
         self.assertTrue(hasattr(self.resource, "name"))
         self.assertEqual(self.resource.name, None)
 
+    def test_medical_type_attr(self):
+        """Test that Resource has attribute medical_type and its none"""
+        self.assertTrue(hasattr(self.resource, "medical_type"))
+        self.assertEqual(self.resource.medical_type, None)
+
+    def test_image_attr(self):
+        """Test that Resource has attribute image and its none"""
+        self.assertTrue(hasattr(self.resource, "image"))
+        self.assertEqual(self.resource.image, None)
+
     def test_medical_articles_attr(self):
         """Test that Resource has attribute medical_articles and its none"""
         self.assertTrue(hasattr(self.resource, "medical_articles"))
@@ -39,7 +49,8 @@ class TestResource(unittest.TestCase):
 
         resource_data = {
             'name': 'Sample Resource',
-            'medical_type': 'sample type'
+            'medical_type': 'sample type',
+            'image': 'Sample_Resource.jpg'
         }
         resource_sample = Resource(**resource_data)
         self.tester.db.new(resource_sample)
@@ -51,6 +62,7 @@ class TestResource(unittest.TestCase):
             'category': 'SampleCategory',
             'summary': 'Sample has a summary',
             'image': 'samplearticle.jpg',
+            'content': '<h1>This is a sample content of a medicalarticle</h1>',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article = MedicalArticle(**article_data)
@@ -61,6 +73,8 @@ class TestResource(unittest.TestCase):
             'category': 'SampleCategory1',
             'summary': 'Sample1 has a summary',
             'image': 'samplearticle1.jpg',
+            'image': 'samplearticle1.jpg',
+            'content': '<h1>This is a sample content of a medicalarticle1</h1>',
             'resource_Id': '{}'.format(resource_sample.id)
         }
         article1 = MedicalArticle(**article_data1)
@@ -72,6 +86,7 @@ class TestResource(unittest.TestCase):
         fetched_resource = self.tester.db._DBStorage__session.query(Resource).filter_by(name='Sample Resource').first()
         self.assertIsNotNone(fetched_resource)
         self.assertEqual(fetched_resource.medical_type, 'sample type')
+        self.assertEqual(fetched_resource.image, 'Sample_Resource.jpg')
 
         medical_articles_length = self.tester.db._DBStorage__session.query(MedicalArticle). \
             join(Resource).filter(Resource.name == 'Sample Resource').count()
