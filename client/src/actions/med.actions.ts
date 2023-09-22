@@ -1,6 +1,8 @@
 import { apiDomain } from "../utils/api";
 const URL = apiDomain;
 
+// CUSTOM FUNCTION TO SEND GET REQUESTS
+
 export const datafromServer = async (path: any) => {
   const response = await fetch(`${URL + path}`, {
     method: "GET",

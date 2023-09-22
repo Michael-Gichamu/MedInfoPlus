@@ -1,3 +1,4 @@
+// SIGN UP COMPONENT
 import React from "react";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";

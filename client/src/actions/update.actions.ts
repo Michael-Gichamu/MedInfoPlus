@@ -3,6 +3,8 @@ import { NewUserCredentials } from "../types/types";
 
 const URL = apiDomain;
 const token = localStorage.getItem("user");
+
+// UPDATE USER CREDENTIALS
 export const updateUserCredentials = async (user: NewUserCredentials) => {
   try {
     const { new_name, email, password, new_password } = user;

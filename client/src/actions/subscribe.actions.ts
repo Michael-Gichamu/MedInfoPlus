@@ -1,5 +1,7 @@
 import { apiDomain } from "../utils/api";
 
+// SEND NEWSLETTER TO USER
+
 export const sendNotification = async (email: string) => {
   const response = await fetch(apiDomain + "account/subscribe", {
     method: "POST",

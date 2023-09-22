@@ -1,3 +1,4 @@
+// DASHBOARD COMPONENT
 import { useEffect, useState } from "react";
 import { fetchSaved } from "../../actions/savedarticle.actions";
 import { LoadingComponent } from "../../components/Loading";

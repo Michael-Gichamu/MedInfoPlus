@@ -1,3 +1,4 @@
+// CUSTOM TYPES FOR APP
 export interface DcardType {
   text: string;
   width: string;

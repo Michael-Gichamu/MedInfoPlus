@@ -1,3 +1,4 @@
+// FIND THE RECENT ARTICLES
 export const findMostRecentArticle = (articles: any) => {
   let mostRecentArticle = null;
   let mostRecentDate = new Date(0);

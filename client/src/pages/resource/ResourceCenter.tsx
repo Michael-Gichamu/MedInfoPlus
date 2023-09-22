@@ -1,3 +1,4 @@
+// RESOURCE CENTER COMPONENT
 import React, { useEffect, useState } from "react";
 import { datafromServer } from "../../actions/med.actions";
 import { useNavigate, useParams } from "react-router-dom";

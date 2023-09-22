@@ -1,3 +1,4 @@
+// LANDING PAGE
 import ImageSlider from "./components/ImageSlider";
 import { LandingHeader } from "./components/LandingHeader";
 import { useNavigate } from "react-router-dom";

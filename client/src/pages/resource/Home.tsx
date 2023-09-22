@@ -1,3 +1,4 @@
+// ALL ARTICLES COMPONENT
 import React, { useEffect, useState } from "react";
 import { Article } from "../../types/types";
 import { TitleCardComponent } from "../../components/Tcard";
