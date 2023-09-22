@@ -1,5 +1,5 @@
+// ARTICLE PAGE
 import React, { useEffect, useState } from "react";
-// import { useParams } from "react-router-dom";
 import { datafromServer } from "../../actions/med.actions";
 import { useNavigate, useParams } from "react-router-dom";
 export const ArticlesComponent: React.FC = (): JSX.Element => {

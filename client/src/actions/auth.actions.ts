@@ -1,13 +1,19 @@
+// IMPORT THE TYPES WE NEED FOR THE FILE
 import { ILoginData, IsignupData } from "../types/auth.types";
+
+// IMPORT THE API FOR THE PROJECT
 import { apiDomain } from "../utils/api";
 
 const URL = apiDomain + "/account/";
+
+// GET LOGED IN USER
 
 export const getLoggedInUser = (): string => {
   const user: string = JSON.parse(localStorage.getItem("user") as string);
   return user;
 };
 
+// SIGN UP USER
 export const signup = async (user: IsignupData) => {
   try {
     const { name, email, password, provider } = user;
@@ -29,6 +35,8 @@ export const signup = async (user: IsignupData) => {
     throw new Error(error);
   }
 };
+
+// LOG IN USER
 
 export const login = async (user: ILoginData) => {
   const res = await fetch(`${URL}login`, {
