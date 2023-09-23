@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ource ~/.bashrc!/usr/bin/env bash
 # configure dev user
 MedInfoPlus_MYSQL_USER="MedInfoPlus_dev"
 MedInfoPlus_MYSQL_PWD="MedInfoPlus_dev_pwd"
